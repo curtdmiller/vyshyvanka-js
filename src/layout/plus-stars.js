@@ -1,10 +1,10 @@
 import Fabric from "../components/Fabric";
 import PlusStar from "../components/shapes/PlusStar";
 import React from "react";
-import { GridContext } from "../App";
+import { AppContext } from "../App";
 
 export default function PlusStars() {
-  const { cellSize } = React.useContext(GridContext);
+  const { cellSize } = React.useContext(AppContext);
   return (
     <Fabric cellSize={cellSize} gridSize={[21, 21]} backgroundColor="white">
       <g transform={`translate(${0 * cellSize}, ${0 * cellSize})`}>

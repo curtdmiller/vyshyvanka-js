@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
-import { GridContext } from "../App";
+import { AppContext } from "../App";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +17,7 @@ export default function Fabric({
   children
 }) {
   const classes = useStyles({ backgroundColor });
-  const { cellSize } = React.useContext(GridContext);
+  const { cellSize } = React.useContext(AppContext);
 
   return (
     <svg

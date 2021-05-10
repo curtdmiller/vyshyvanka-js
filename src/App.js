@@ -3,7 +3,9 @@ import "./styles.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "./layout/layout";
 
-export const GridContext = React.createContext({
+export const AppContext = React.createContext({
+  isAudioStarted: false,
+  setIsAudioStarted: () => {},
   cellSize: 24,
   selectFill: "#fa28ff",
   setSelectFill: () => {}
@@ -11,14 +13,21 @@ export const GridContext = React.createContext({
 
 export default function App() {
   const [selectFill, setSelectFill] = React.useState("#fa28ff");
+  const [isAudioStarted, setIsAudioStarted] = React.useState(false);
   return (
     <div className="App">
       <Router>
-        <GridContext.Provider
-          value={{ cellSize: 24, selectFill, setSelectFill }}
+        <AppContext.Provider
+          value={{
+            isAudioStarted,
+            setIsAudioStarted,
+            cellSize: 24,
+            selectFill,
+            setSelectFill
+          }}
         >
           <Layout />
-        </GridContext.Provider>
+        </AppContext.Provider>
       </Router>
     </div>
   );

@@ -13,6 +13,8 @@ import EmptyDiamond from "./empty-diamond";
 import NoiseSquare from "./noise-square";
 import StarDiamond2 from "./star-diamond-2";
 import ColorPicker from "../components/ColorPicker";
+import TriangleInD from "./triangle-in-d";
+import AudioStartButton from "../components/AudioStart";
 
 const menu = [
   {
@@ -42,6 +44,11 @@ const menu = [
     url: "/star-diamond-2",
     title: "Star Diamond II",
     component: <StarDiamond2 />
+  },
+  {
+    url: "/triangle-in-d",
+    title: "Triangle In D",
+    component: <TriangleInD />
   }
 ];
 
@@ -64,6 +71,7 @@ export default function Layout() {
         <Route path={item.url} key={item.url}>
           <Link to="/">Back</Link>
           <ColorPicker />
+          <AudioStartButton />
           {item.component}
         </Route>
       ))}

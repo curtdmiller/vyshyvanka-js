@@ -1,9 +1,19 @@
+import { makeStyles } from "@material-ui/core";
 import React from "react";
 import * as Tone from "tone";
 import { polySketchInC } from "../components/tonejs/polysketchinC";
 // import { synthTone } from "./components/tonejs/simpleorder";
 
+const useStyles = makeStyles({
+  root: {
+    "& button": {
+      display: "block"
+    }
+  }
+});
+
 export default function ToneTest() {
+  const classes = useStyles();
   const loopBeat = React.useRef(new Tone.Loop(polySketchInC, "16n"));
 
   React.useEffect(() => {
@@ -16,5 +26,9 @@ export default function ToneTest() {
     Tone.Transport.toggle();
   }
 
-  return <button onClick={handleClick}>Toggle Beat</button>;
+  return (
+    <div className={classes.root}>
+      <button onClick={handleClick}>Toggle Beat</button>
+    </div>
+  );
 }

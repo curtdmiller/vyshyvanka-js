@@ -2,7 +2,7 @@ import * as React from "react";
 import { IconButton } from "@material-ui/core";
 import { Palette } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import { GridContext } from "../App";
+import { AppContext } from "../App";
 import { CompactPicker } from "react-color";
 
 const useStyles = makeStyles({
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 export default function ColorPicker() {
   const classes = useStyles();
-  const { cellSize, selectFill, setSelectFill } = React.useContext(GridContext);
+  const { cellSize, selectFill, setSelectFill } = React.useContext(AppContext);
   const [colorPickerOpen, setColorPickerOpen] = React.useState(false);
 
   function handleColorChange(color) {

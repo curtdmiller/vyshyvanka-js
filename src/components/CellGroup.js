@@ -1,5 +1,5 @@
 import React from "react";
-import { GridContext } from "../App";
+import { AppContext } from "../App";
 import G from "./G";
 
 /**
@@ -14,7 +14,7 @@ import G from "./G";
  * @param {number} props.y - y transform in cells
  */
 export default function CellGroup({ matrix, x, y }) {
-  const { cellSize } = React.useContext(GridContext);
+  const { cellSize } = React.useContext(AppContext);
   const [opacity, setOpacity] = React.useState(1);
   function clickHandler(event) {
     if (event.shiftKey) {
@@ -61,7 +61,7 @@ export default function CellGroup({ matrix, x, y }) {
 function Stitch({ fill, x, y }) {
   const [selected, setSelected] = React.useState(false);
   const [currentFill, setCurrentFill] = React.useState(fill);
-  const { cellSize, selectFill, setSelectFill } = React.useContext(GridContext);
+  const { cellSize, selectFill, setSelectFill } = React.useContext(AppContext);
 
   React.useEffect(() => {
     if (selected) {
