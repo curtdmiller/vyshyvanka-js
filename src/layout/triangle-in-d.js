@@ -65,6 +65,8 @@ export default function TriangleInD() {
     Tone.Transport.start(10);
     Tone.Transport.start(15);
     Tone.Transport.bpm.value = 160;
+
+    return () => Tone.Transport.stop(0);
   }, []);
 
   return (
