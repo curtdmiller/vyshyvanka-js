@@ -15,6 +15,7 @@ import StarDiamond2 from "./star-diamond-2";
 import ColorPicker from "../components/ColorPicker";
 import TriangleInD from "./triangle-in-d";
 import AudioStartButton from "../components/AudioStart";
+import { makeStyles } from "@material-ui/core";
 
 const menu = [
   {
@@ -52,9 +53,18 @@ const menu = [
   }
 ];
 
+const useStyles = makeStyles({
+  embroidery: {
+    maxWidth: 800,
+    margin: "0 auto"
+  }
+});
+
 export default function Layout() {
+  const classes = useStyles();
+
   return (
-    <div>
+    <main>
       <Route path="/" exact>
         <h1>Vyshyvanka.js/Вишиванка.js</h1>
         <nav>
@@ -72,9 +82,9 @@ export default function Layout() {
           <Link to="/">Back</Link>
           <ColorPicker />
           <AudioStartButton />
-          {item.component}
+          <div className={classes.embroidery}>{item.component}</div>
         </Route>
       ))}
-    </div>
+    </main>
   );
 }
