@@ -16,6 +16,7 @@ import ColorPicker from "../components/ColorPicker";
 import TriangleInD from "./triangle-in-d";
 import AudioStartButton from "../components/AudioStart";
 import { makeStyles } from "@material-ui/core";
+import IsoscelesTriangles from "./iso-triangles";
 
 const menu = [
   {
@@ -50,6 +51,11 @@ const menu = [
     url: "/triangle-in-d",
     title: "Triangle In D",
     component: <TriangleInD />
+  },
+  {
+    url: "/iso-triangles",
+    title: "Isosceles Triangles",
+    component: <IsoscelesTriangles />
   }
 ];
 
