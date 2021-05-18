@@ -1,6 +1,7 @@
 import React from "react";
 import { AppContext } from "../App";
 import G from "./G";
+import Stitch from "./Stitch";
 
 /**
  * ### Cell Group
@@ -55,36 +56,5 @@ export default function CellGroup({ matrix, x, y }) {
         })
       )}
     </G>
-  );
-}
-
-function Stitch({ fill, x, y }) {
-  const [selected, setSelected] = React.useState(false);
-  const [currentFill, setCurrentFill] = React.useState(fill);
-  const { cellSize, selectFill, setSelectFill } = React.useContext(AppContext);
-
-  React.useEffect(() => {
-    if (selected) {
-      setCurrentFill(selectFill);
-    } else {
-      setCurrentFill(fill);
-    }
-  }, [selected, fill, selectFill]);
-
-  function handleClick(event) {
-    if (!event.shiftKey) {
-      setSelected(!selected);
-    }
-  }
-
-  return (
-    <rect
-      width={cellSize}
-      height={cellSize}
-      fill={currentFill}
-      x={x * cellSize}
-      y={y * cellSize}
-      onClick={(event) => handleClick(event)}
-    />
   );
 }
