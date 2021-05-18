@@ -17,6 +17,7 @@ import TriangleInD from "./triangle-in-d";
 import AudioStartButton from "../components/AudioStart";
 import { makeStyles } from "@material-ui/core";
 import IsoscelesTriangles from "./iso-triangles";
+import XStitchSet from "./x-stitch-set";
 
 const menu = [
   {
@@ -56,6 +57,11 @@ const menu = [
     url: "/iso-triangles",
     title: "Isosceles Triangles",
     component: <IsoscelesTriangles />
+  },
+  {
+    url: "/x-stitch-set",
+    title: "X Stitch Set",
+    component: <XStitchSet />
   }
 ];
 
