@@ -54,13 +54,6 @@ export default function StarDiamond2() {
       <Fabric gridSize={[27, 27]} showGrid gridColor="#aaa">
         <Shape />
       </Fabric>
-      <Fabric gridSize={[60, 60]} showGrid gridColor="#aaa">
-        <Shape />
-        <Shape x={34} />
-        <Shape y={34} />
-        <Shape x={34} y={34} />
-        <Shape x={17} y={17} />
-      </Fabric>
     </React.Fragment>
   );
 }

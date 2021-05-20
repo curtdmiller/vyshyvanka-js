@@ -16,28 +16,20 @@ import Stitch from "./Stitch";
  */
 export default function CellGroup({ matrix, x, y }) {
   const { cellSize } = React.useContext(AppContext);
-  const [opacity, setOpacity] = React.useState(1);
+  const [selected, setSelected] = React.useState(false);
+
   function clickHandler(event) {
     if (event.shiftKey) {
-      console.log("shifted");
+      setSelected(!selected);
     }
   }
-  function mouseEnterHandler(event) {
-    if (event.shiftKey) {
-      setOpacity(0.5);
-    }
-  }
-  function mouseLeaveHandler(event) {
-    setOpacity(1);
-  }
+
   return (
     <G
       x={x}
       y={y}
-      fillOpacity={opacity}
+      fillOpacity={selected ? 0.5 : 1}
       onClick={(event) => clickHandler(event)}
-      onMouseEnter={(event) => mouseEnterHandler(event)}
-      onMouseLeave={(event) => mouseLeaveHandler(event)}
     >
       {matrix.map((row, i) =>
         row.map((sq, j) => {
