@@ -3,7 +3,7 @@ import Fabric from "../components/Fabric";
 export default function LineTest() {
   const cellSize = 10;
   return (
-    <Fabric cellSize={10} gridSize={[20, 20]}>
+    <Fabric cellSize={10} gridSize={[20, 20]} showGrid gridColor="#eeeeee">
       <Line
         length={16}
         angle="horizontal"

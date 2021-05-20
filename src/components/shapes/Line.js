@@ -1,38 +1,32 @@
 import React from "react";
 import CellGroup from "../CellGroup";
+import ShapeBase from "./ShapeBase";
 
 export default function Line({ length, angle, color, x, y }) {
   const [matrix, setMatrix] = React.useState();
+  const [stitches, setStitches] = React.useState();
 
   React.useEffect(() => {
+    const tempStitches = [];
     if (angle === "vertical") {
-      setMatrix(
-        Array.from(Array(length), (_, i) =>
-          Array.from(Array(1), (_, j) => color)
-        )
-      );
+      for (let i = 0; i < length; i++) {
+        tempStitches.push({ fill: color, x: 0, y: i });
+      }
     } else if (angle === "horizontal") {
-      setMatrix(
-        Array.from(Array(1), (_, i) =>
-          Array.from(Array(length), (_, j) => color)
-        )
-      );
+      for (let i = 0; i < length; i++) {
+        tempStitches.push({ fill: color, x: i, y: 0 });
+      }
     } else if (angle === "diagonal-up") {
-      setMatrix(
-        Array.from(Array(length), (_, i) =>
-          Array.from(Array(length), (_, j) =>
-            length - i - 1 === j ? color : null
-          )
-        )
-      );
+      for (let i = 0; i < length; i++) {
+        tempStitches.push({ fill: color, x: i, y: i });
+      }
     } else if (angle === "diagonal-down") {
-      setMatrix(
-        Array.from(Array(length), (_, i) =>
-          Array.from(Array(length), (_, j) => (i === j ? color : null))
-        )
-      );
+      for (let i = 0; i < length; i++) {
+        tempStitches.push({ fill: color, x: i, y: length - i - 1 });
+      }
     }
+    setStitches(tempStitches);
   }, [length, angle, color]);
 
-  return matrix ? <CellGroup matrix={matrix} x={x} y={y} /> : <g></g>;
+  return stitches ? <ShapeBase stitches={stitches} x={x} y={y} /> : <g></g>;
 }
