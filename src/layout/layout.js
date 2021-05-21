@@ -2,16 +2,16 @@ import React from "react";
 import { Route, Link } from "react-router-dom";
 import ColorPicker from "../components/ColorPicker";
 import { makeStyles } from "@material-ui/core";
-import StarDiamond2 from "./star-diamond-2";
+import StarDiamond from "./star-diamond";
 import TriangleInD from "./triangle-in-d";
 import AudioStartButton from "../components/AudioStart";
 import TestPage from "./tests/TestPage";
 
 const menu = [
   {
-    url: "/star-diamond-2",
-    title: "Star Diamond II",
-    component: <StarDiamond2 />
+    url: "/star-diamond",
+    title: "Star Diamond Interface",
+    component: <StarDiamond />
   },
   {
     url: "/triangle-in-d",

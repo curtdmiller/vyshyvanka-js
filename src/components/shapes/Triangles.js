@@ -94,7 +94,15 @@ function generateIsoMatrix(orientation, baseWidth, fill) {
   }
 }
 
-export function IsoTriangle({ orientation, size, fill, x, y }) {
+export function IsoTriangle({
+  orientation,
+  size,
+  fill,
+  x,
+  y,
+  selected,
+  setSelected
+}) {
   const [baseWidth, setBaseWidth] = React.useState(
     size % 2 === 0 ? size - 1 : size
   );
@@ -108,5 +116,13 @@ export function IsoTriangle({ orientation, size, fill, x, y }) {
     setMatrix(generateIsoMatrix(orientation, baseWidth, fill));
   }, [orientation, baseWidth, fill]);
 
-  return <CellGroup matrix={matrix} x={x} y={y} />;
+  return (
+    <CellGroup
+      matrix={matrix}
+      x={x}
+      y={y}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  );
 }

@@ -1,11 +1,14 @@
+import React from "react";
+import * as Tone from "tone";
 import Fabric from "../components/Fabric";
 import Diamond from "../components/shapes/Diamond";
 import Square from "../components/shapes/Square";
 import Star from "../components/shapes/Star";
-import React from "react";
 import Single from "../components/shapes/Single";
-import { IsoTriangle, RightTriangle } from "../components/shapes/Triangles";
-import * as Tone from "tone";
+import { IsoTriangle } from "../components/shapes/Triangles";
+import { colors } from "../theme/colors";
+import OuterTriangles from "./star-interface/OuterTriangles";
+import InnerTriangles from "./star-interface/InnerTriangles";
 
 const delay = new Tone.FeedbackDelay({
   maxDelay: 2,
@@ -37,61 +40,26 @@ var pattern1 = new Tone.Pattern(
   ["D4", "F4", "D4"],
   "up"
 );
+var pattern2 = new Tone.Pattern(
+  function (time, note) {
+    synthA.triggerAttackRelease(note, 0.1);
+  },
+  ["D4", "E4", "Eb4", "E4", "D4"],
+  "up"
+);
+var pattern3 = new Tone.Pattern(
+  function (time, note) {
+    synthA.triggerAttackRelease(note, 0.1);
+  },
+  ["D4", "Eb4", "D4", "Eb4", "D4", "Eb4", "D4"],
+  "down"
+);
 
-export default function StarDiamond2() {
-  const [synth, setSynth] = React.useState(synthA);
-  const [triangleSelected, setTriangleSelected] = React.useState(false);
-  const colors = {
-    darkGray: "#1f1300",
-    gray: "#2A3338",
-    red: "#CE675E",
-    orange: "#FF8811",
-    yellow: "#F4D06F",
-    blue: "#1446a0",
-    green: "#0A5A3F",
-    offWhite: "#f2f7f2"
-  };
-  React.useEffect(() => {
-    if (triangleSelected) {
-      pattern1.start(0);
-    } else {
-      pattern1.stop(0);
-    }
-  }, [triangleSelected]);
-
+export default function StarDiamond() {
   return (
     <Fabric gridSize={[37, 37]}>
-      <RightTriangle
-        orientation="SE"
-        sideLength={16}
-        fill={colors.gray}
-        x={0}
-        y={0}
-        selected={triangleSelected}
-        setSelected={setTriangleSelected}
-      />
+      <OuterTriangles patterns={[pattern1, pattern2, pattern3]} />
 
-      <RightTriangle
-        orientation="SW"
-        sideLength={16}
-        fill={colors.gray}
-        x={21}
-        y={0}
-      />
-      <RightTriangle
-        orientation="NW"
-        sideLength={16}
-        fill={colors.gray}
-        x={21}
-        y={21}
-      />
-      <RightTriangle
-        orientation="NE"
-        sideLength={16}
-        fill={colors.gray}
-        x={0}
-        y={21}
-      />
       {/* outer diamonds */}
       <Diamond diameter={37} cx={18} cy={18} stroke={colors.green} />
       <Diamond diameter={35} cx={18} cy={18} stroke={colors.green} />
@@ -100,51 +68,7 @@ export default function StarDiamond2() {
       <Diamond diameter={29} cx={18} cy={18} stroke={colors.offWhite} />
       <Diamond diameter={27} cx={18} cy={18} stroke={colors.darkGray} />
 
-      <IsoTriangle
-        orientation="north"
-        size={9}
-        fill={colors.red}
-        x={8}
-        y={13}
-      />
-      <IsoTriangle orientation="west" size={9} fill={colors.red} x={13} y={8} />
-      <IsoTriangle orientation="east" size={9} fill={colors.red} x={19} y={8} />
-      <IsoTriangle
-        orientation="north"
-        size={9}
-        fill={colors.red}
-        x={20}
-        y={13}
-      />
-
-      <IsoTriangle
-        orientation="south"
-        size={9}
-        fill={colors.red}
-        x={8}
-        y={19}
-      />
-      <IsoTriangle
-        orientation="west"
-        size={9}
-        fill={colors.red}
-        x={13}
-        y={20}
-      />
-      <IsoTriangle
-        orientation="east"
-        size={9}
-        fill={colors.red}
-        x={19}
-        y={20}
-      />
-      <IsoTriangle
-        orientation="south"
-        size={9}
-        fill={colors.red}
-        x={20}
-        y={19}
-      />
+      <InnerTriangles />
 
       {/* The Star */}
       <Star width={19} color={colors.orange} center={[18, 18]} />
