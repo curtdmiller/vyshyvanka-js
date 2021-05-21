@@ -9,6 +9,7 @@ import { IsoTriangle } from "../components/shapes/Triangles";
 import { colors } from "../theme/colors";
 import OuterTriangles from "./star-interface/OuterTriangles";
 import InnerTriangles from "./star-interface/InnerTriangles";
+import OuterDiamonds from "./star-interface/OuterDiamonds";
 
 const delay = new Tone.FeedbackDelay({
   maxDelay: 2,
@@ -60,13 +61,7 @@ export default function StarDiamond() {
     <Fabric gridSize={[37, 37]}>
       <OuterTriangles patterns={[pattern1, pattern2, pattern3]} />
 
-      {/* outer diamonds */}
-      <Diamond diameter={37} cx={18} cy={18} stroke={colors.green} />
-      <Diamond diameter={35} cx={18} cy={18} stroke={colors.green} />
-      <Diamond diameter={33} cx={18} cy={18} stroke={colors.green} />
-      <Diamond diameter={31} cx={18} cy={18} stroke={colors.green} />
-      <Diamond diameter={29} cx={18} cy={18} stroke={colors.offWhite} />
-      <Diamond diameter={27} cx={18} cy={18} stroke={colors.darkGray} />
+      <OuterDiamonds />
 
       <InnerTriangles />
 
