@@ -1,6 +1,6 @@
 import * as React from "react";
-import Fabric from "../components/Fabric";
-import Plus from "../components/shapes/Plus";
+import Fabric from "../../components/Fabric";
+import Plus from "../../components/shapes/Plus";
 
 export default function NestedPlus() {
   const [selectAll, setSelectAll] = React.useState(false);

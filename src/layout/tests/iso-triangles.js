@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
-import Fabric from "../components/Fabric";
-import { IsoTriangle } from "../components/shapes/Triangles";
+import Fabric from "../../components/Fabric";
+import { IsoTriangle } from "../../components/shapes/Triangles";
 
 const useStyles = makeStyles({
   root: {

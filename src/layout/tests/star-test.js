@@ -1,6 +1,6 @@
 import * as React from "react";
-import Fabric from "../components/Fabric";
-import Star from "../components/shapes/Star";
+import Fabric from "../../components/Fabric";
+import Star from "../../components/shapes/Star";
 
 export default function StarTest() {
   const [selectFirst, setSelectFirst] = React.useState(false);

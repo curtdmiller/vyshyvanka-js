@@ -1,5 +1,6 @@
-import Line from "../components/shapes/Line";
-import Fabric from "../components/Fabric";
+import Line from "../../components/shapes/Line";
+import Fabric from "../../components/Fabric";
+
 export default function LineTest() {
   const cellSize = 10;
   return (

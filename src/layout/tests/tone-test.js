@@ -1,8 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
 import * as Tone from "tone";
-import { polySketchInC } from "../components/tonejs/polysketchinC";
-// import { synthTone } from "./components/tonejs/simpleorder";
+import { polySketchInC } from "../../components/tonejs/polysketchinC";
 
 const useStyles = makeStyles({
   root: {
@@ -15,15 +14,15 @@ const useStyles = makeStyles({
 export default function ToneTest() {
   const classes = useStyles();
   const loopBeat = React.useRef(new Tone.Loop(polySketchInC, "16n"));
+  const [loopOn, setLoopOn] = React.useState(false);
 
   React.useEffect(() => {
-    // stuff to do on initial component mount
-    loopBeat.current.start(0);
-  }, []);
+    loopOn ? loopBeat.current.start(0) : loopBeat.current.stop(0);
+    return () => loopBeat.current.stop(0);
+  }, [loopOn]);
 
   function handleClick() {
-    // synthTone();
-    Tone.Transport.toggle();
+    setLoopOn(!loopOn);
   }
 
   return (

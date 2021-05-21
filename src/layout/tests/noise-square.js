@@ -1,7 +1,7 @@
-import CellGroup from "../components/CellGroup";
-import { interpolateGreys } from "d3-scale-chromatic";
-import Fabric from "../components/Fabric";
 import React from "react";
+import { interpolateGreys } from "d3-scale-chromatic";
+import Fabric from "../../components/Fabric";
+import CellGroup from "../../components/CellGroup";
 
 export default function NoiseSquare() {
   const width = 50;

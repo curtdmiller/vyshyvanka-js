@@ -1,5 +1,5 @@
-import Fabric from "../components/Fabric";
-import Diamond from "../components/shapes/Diamond";
+import Fabric from "../../components/Fabric";
+import Diamond from "../../components/shapes/Diamond";
 
 export default function EmptyDiamond() {
   return (

@@ -1,7 +1,7 @@
 import * as React from "react";
-import Fabric from "../components/Fabric";
-import Square from "../components/shapes/Square";
-import G from "../components/G";
+import Fabric from "../../components/Fabric";
+import Square from "../../components/shapes/Square";
+import G from "../../components/G";
 
 export default function SquareTest() {
   const cellSize = 10;

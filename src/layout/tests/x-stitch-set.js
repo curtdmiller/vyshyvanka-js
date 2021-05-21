@@ -1,6 +1,6 @@
 import * as React from "react";
-import Fabric from "../components/Fabric";
-import X from "../components/shapes/X";
+import Fabric from "../../components/Fabric";
+import X from "../../components/shapes/X";
 
 export default function XStitchSet() {
   const [sel1, setSel1] = React.useState(false);

@@ -1,7 +1,7 @@
-import Fabric from "../components/Fabric";
-import PlusStar from "../components/shapes/PlusStar";
+import Fabric from "../../components/Fabric";
+import PlusStar from "../../components/shapes/PlusStar";
 import React from "react";
-import { AppContext } from "../App";
+import { AppContext } from "../../App";
 
 export default function PlusStars() {
   const { cellSize } = React.useContext(AppContext);

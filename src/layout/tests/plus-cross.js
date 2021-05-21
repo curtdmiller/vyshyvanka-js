@@ -1,5 +1,5 @@
-import Fabric from "../components/Fabric";
-import Plus from "../components/shapes/Plus";
+import Fabric from "../../components/Fabric";
+import Plus from "../../components/shapes/Plus";
 
 export default function PlusCross() {
   return (

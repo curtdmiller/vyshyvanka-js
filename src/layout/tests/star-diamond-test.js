@@ -1,9 +1,9 @@
 import React from "react";
-import Fabric from "../components/Fabric";
-import Diamond from "../components/shapes/Diamond";
-import Plus from "../components/shapes/Plus";
-import Square from "../components/shapes/Square";
-import Star from "../components/shapes/Star";
+import Fabric from "../../components/Fabric";
+import Diamond from "../../components/shapes/Diamond";
+import Plus from "../../components/shapes/Plus";
+import Square from "../../components/shapes/Square";
+import Star from "../../components/shapes/Star";
 
 export default function StarDiamond() {
   const red = "rgb(149,57,45)";
