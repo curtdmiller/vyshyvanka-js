@@ -10,6 +10,7 @@ import { colors } from "../theme/colors";
 import OuterTriangles from "./star-interface/OuterTriangles";
 import InnerTriangles from "./star-interface/InnerTriangles";
 import OuterDiamonds from "./star-interface/OuterDiamonds";
+import CornerStars from "./star-interface/CornerStars";
 
 const delay = new Tone.FeedbackDelay({
   maxDelay: 2,
@@ -60,9 +61,7 @@ export default function StarDiamond() {
   return (
     <Fabric gridSize={[37, 37]}>
       <OuterTriangles patterns={[pattern1, pattern2, pattern3]} />
-
       <OuterDiamonds />
-
       <InnerTriangles />
 
       {/* The Star */}
@@ -73,48 +72,7 @@ export default function StarDiamond() {
       <Square width={3} x={17} y={17} stroke={colors.yellow} />
       <Single x={18} y={18} stroke={colors.gray} />
 
-      {/* West Diamond */}
-      <Diamond
-        diameter={5}
-        cx={7}
-        cy={18}
-        stroke={colors.gray}
-        fill={colors.gray}
-        filled
-      />
-      <Single x={7} y={18} fill={colors.yellow} />
-      {/* East Diamond */}
-      <Diamond
-        diameter={5}
-        cx={29}
-        cy={18}
-        stroke={colors.gray}
-        fill={colors.gray}
-        filled
-      />
-      <Single x={29} y={18} fill={colors.yellow} />
-
-      {/* North Diamond */}
-      <Diamond
-        diameter={5}
-        cx={18}
-        cy={7}
-        stroke={colors.gray}
-        fill={colors.gray}
-        filled
-      />
-      <Single x={18} y={7} fill={colors.yellow} />
-
-      {/* South Diamond */}
-      <Diamond
-        diameter={5}
-        cx={18}
-        cy={29}
-        stroke={colors.gray}
-        fill={colors.gray}
-        filled
-      />
-      <Single x={18} y={29} fill={colors.yellow} />
+      <CornerStars />
     </Fabric>
   );
 }
