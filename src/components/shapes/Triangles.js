@@ -1,7 +1,15 @@
 import CellGroup from "../CellGroup";
 import React from "react";
 
-export function RightTriangle({ orientation, sideLength, fill, x, y }) {
+export function RightTriangle({
+  orientation,
+  sideLength,
+  fill,
+  x,
+  y,
+  selected,
+  setSelected
+}) {
   function generateMatrix(orientation) {
     switch (orientation) {
       case "NE":
@@ -31,7 +39,15 @@ export function RightTriangle({ orientation, sideLength, fill, x, y }) {
 
   const matrix = generateMatrix(orientation);
 
-  return <CellGroup matrix={matrix} x={x} y={y} />;
+  return (
+    <CellGroup
+      matrix={matrix}
+      x={x}
+      y={y}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  );
 }
 
 function generateIsoMatrix(orientation, baseWidth, fill) {

@@ -3,6 +3,9 @@ import Fabric from "../components/Fabric";
 import Diamond from "../components/shapes/Diamond";
 
 export default function NestedDiamonds() {
+  const [selectAll, setSelectAll] = React.useState(false);
+  const [selectAll2, setSelectAll2] = React.useState(false);
+
   return (
     <React.Fragment>
       <Fabric
@@ -18,6 +21,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll}
+          setSelected={setSelectAll}
         />
         <Diamond
           diameter={31}
@@ -26,6 +31,8 @@ export default function NestedDiamonds() {
           stroke="#ffffff"
           cx={20}
           cy={20}
+          selected={selectAll}
+          setSelected={setSelectAll}
         />
         <Diamond
           diameter={21}
@@ -34,6 +41,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll}
+          setSelected={setSelectAll}
         />
         <Diamond
           diameter={11}
@@ -42,6 +51,8 @@ export default function NestedDiamonds() {
           stroke="#ffffff"
           cx={20}
           cy={20}
+          selected={selectAll}
+          setSelected={setSelectAll}
         />
         <Diamond
           diameter={3}
@@ -50,6 +61,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll}
+          setSelected={setSelectAll}
         />
       </Fabric>
       <Fabric
@@ -64,6 +77,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
         <Diamond
           diameter={39}
@@ -71,6 +86,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
         <Diamond
           diameter={37}
@@ -78,6 +95,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
         <Diamond
           diameter={33}
@@ -85,6 +104,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
         <Diamond
           diameter={25}
@@ -92,6 +113,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
         <Diamond
           diameter={21}
@@ -99,6 +122,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
         <Diamond
           diameter={17}
@@ -106,8 +131,18 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
-        <Diamond diameter={7} fill="#ff0000" stroke="#ff0000" cx={20} cy={20} />
+        <Diamond
+          diameter={7}
+          fill="#ff0000"
+          stroke="#ff0000"
+          cx={20}
+          cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
+        />
         <Diamond
           diameter={3}
           filled
@@ -115,6 +150,8 @@ export default function NestedDiamonds() {
           stroke="#ff0000"
           cx={20}
           cy={20}
+          selected={selectAll2}
+          setSelected={setSelectAll2}
         />
       </Fabric>
     </React.Fragment>

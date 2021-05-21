@@ -2,7 +2,16 @@ import * as React from "react";
 import G from "../G";
 import ShapeBase from "./ShapeBase";
 
-export default function Diamond({ diameter, stroke, fill, filled, cx, cy }) {
+export default function Diamond({
+  diameter,
+  stroke,
+  fill,
+  filled,
+  cx,
+  cy,
+  selected,
+  setSelected
+}) {
   const [stitches, setStitches] = React.useState();
   const [realDiameter, setRealDiameter] = React.useState(
     diameter % 2 === 0 ? diameter - 1 : diameter
@@ -51,6 +60,8 @@ export default function Diamond({ diameter, stroke, fill, filled, cx, cy }) {
           stitches={stitches}
           x={-(realDiameter - 1) / 2}
           y={-(realDiameter - 1) / 2}
+          selected={selected}
+          setSelected={setSelected}
         />
       )}
     </G>

@@ -14,12 +14,11 @@ import Stitch from "./Stitch";
  * @param {number} props.x - x transform in cells
  * @param {number} props.y - y transform in cells
  */
-export default function CellGroup({ matrix, x, y }) {
+export default function CellGroup({ matrix, x, y, selected, setSelected }) {
   const { cellSize } = React.useContext(AppContext);
-  const [selected, setSelected] = React.useState(false);
 
   function clickHandler(event) {
-    if (event.shiftKey) {
+    if (event.shiftKey && setSelected && selected != null) {
       setSelected(!selected);
     }
   }

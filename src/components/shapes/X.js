@@ -1,10 +1,8 @@
 import * as React from "react";
-import G from "../G";
-import Stitch from "../Stitch";
+import ShapeBase from "./ShapeBase";
 
-export default function X({ width, fill, x, y }) {
+export default function X({ width, fill, x, y, selected, setSelected }) {
   const [stitches, setStitches] = React.useState([]);
-  const [selected, setSelected] = React.useState(false);
 
   React.useEffect(() => {
     const tempStitches = [];
@@ -20,22 +18,13 @@ export default function X({ width, fill, x, y }) {
     );
   }, [width]);
 
-  function clickHandler(event) {
-    if (event.shiftKey) {
-      setSelected(!selected);
-    }
-  }
-
   return (
-    <G x={x} y={y} fillOpacity={selected ? 0.5 : 1} onClick={clickHandler}>
-      {stitches.map((stitch, i) => (
-        <Stitch
-          fill={stitch.fill}
-          x={stitch.x}
-          y={stitch.y}
-          key={`stitch-${i}`}
-        />
-      ))}
-    </G>
+    <ShapeBase
+      stitches={stitches}
+      x={x}
+      y={y}
+      selected={selected}
+      setSelected={setSelected}
+    />
   );
 }

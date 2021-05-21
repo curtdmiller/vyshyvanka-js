@@ -5,8 +5,42 @@ import Star from "../components/shapes/Star";
 import React from "react";
 import Single from "../components/shapes/Single";
 import { IsoTriangle, RightTriangle } from "../components/shapes/Triangles";
+import * as Tone from "tone";
+
+const delay = new Tone.FeedbackDelay({
+  maxDelay: 2,
+  feedback: 0.8,
+  wet: 0.2
+}).toDestination();
+
+const synthA = new Tone.FMSynth({
+  oscillator: {
+    type: "sawtooth"
+  },
+  modulationIndex: 11,
+  modulation: {
+    type: "square"
+  },
+  envelope: {
+    attack: 0.01,
+    decay: 0.2,
+    sustain: 0.2,
+    release: 2,
+    attackCurve: "sine"
+  }
+}).connect(delay);
+
+var pattern1 = new Tone.Pattern(
+  function (time, note) {
+    synthA.triggerAttackRelease(note, 0.1);
+  },
+  ["D4", "F4", "D4"],
+  "up"
+);
 
 export default function StarDiamond2() {
+  const [synth, setSynth] = React.useState(synthA);
+  const [triangleSelected, setTriangleSelected] = React.useState(false);
   const colors = {
     darkGray: "#1f1300",
     gray: "#2A3338",
@@ -17,6 +51,13 @@ export default function StarDiamond2() {
     green: "#0A5A3F",
     offWhite: "#f2f7f2"
   };
+  React.useEffect(() => {
+    if (triangleSelected) {
+      pattern1.start(0);
+    } else {
+      pattern1.stop(0);
+    }
+  }, [triangleSelected]);
 
   return (
     <Fabric gridSize={[37, 37]}>
@@ -26,7 +67,10 @@ export default function StarDiamond2() {
         fill={colors.gray}
         x={0}
         y={0}
+        selected={triangleSelected}
+        setSelected={setTriangleSelected}
       />
+
       <RightTriangle
         orientation="SW"
         sideLength={16}

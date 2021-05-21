@@ -1,11 +1,27 @@
+import * as React from "react";
 import Fabric from "../components/Fabric";
 import Star from "../components/shapes/Star";
 
 export default function StarTest() {
+  const [selectFirst, setSelectFirst] = React.useState(false);
+  const [selectSecond, setSelectSecond] = React.useState(false);
+
   return (
     <Fabric gridSize={[37, 51]} backgroundColor="#222" showGrid>
-      <Star center={[2, 5]} color="white" width={1} />
-      <Star center={[6, 5]} color="white" width={3} />
+      <Star
+        center={[2, 5]}
+        color="white"
+        width={1}
+        selected={selectFirst}
+        setSelected={setSelectFirst}
+      />
+      <Star
+        center={[6, 5]}
+        color="white"
+        width={3}
+        selected={selectSecond}
+        setSelected={setSelectSecond}
+      />
       <Star center={[12, 5]} color="white" width={5} />
       <Star center={[20, 5]} color="white" width={7} />
       <Star center={[30, 5]} color="white" width={9} />

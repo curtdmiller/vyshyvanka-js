@@ -1,9 +1,15 @@
 import React from "react";
-import CellGroup from "../CellGroup";
 import ShapeBase from "./ShapeBase";
 
-export default function Line({ length, angle, color, x, y }) {
-  const [matrix, setMatrix] = React.useState();
+export default function Line({
+  length,
+  angle,
+  color,
+  x,
+  y,
+  selected,
+  setSelected
+}) {
   const [stitches, setStitches] = React.useState();
 
   React.useEffect(() => {
@@ -28,5 +34,15 @@ export default function Line({ length, angle, color, x, y }) {
     setStitches(tempStitches);
   }, [length, angle, color]);
 
-  return stitches ? <ShapeBase stitches={stitches} x={x} y={y} /> : <g></g>;
+  return stitches ? (
+    <ShapeBase
+      stitches={stitches}
+      x={x}
+      y={y}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  ) : (
+    <g></g>
+  );
 }

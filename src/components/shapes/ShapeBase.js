@@ -2,10 +2,9 @@ import * as React from "react";
 import G from "../G";
 import Stitch from "../Stitch";
 
-export default function ShapeBase({ stitches, x, y }) {
-  const [selected, setSelected] = React.useState(false);
+export default function ShapeBase({ stitches, x, y, selected, setSelected }) {
   function clickHandler(event) {
-    if (event.shiftKey) {
+    if (event.shiftKey && setSelected && selected != null) {
       setSelected(!selected);
     }
   }
