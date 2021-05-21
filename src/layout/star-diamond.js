@@ -60,7 +60,7 @@ var pattern3 = new Tone.Pattern(
 export default function StarDiamond() {
   return (
     <Fabric gridSize={[37, 37]}>
-      <OuterTriangles patterns={[pattern1, pattern2, pattern3]} />
+      <OuterTriangles patterns={[pattern1, pattern2, pattern3]} delay={delay} />
       <OuterDiamonds />
       <InnerTriangles />
 

@@ -41,6 +41,7 @@ export default function Fabric({
             x2="100%"
             y2="0"
             stroke={gridColor ? gridColor : "white"}
+            strokeWidth={2}
           />
           <line
             x1="0"
@@ -48,6 +49,7 @@ export default function Fabric({
             x2="0"
             y2="100%"
             stroke={gridColor ? gridColor : "white"}
+            strokeWidth={2}
           />
         </pattern>
       </defs>

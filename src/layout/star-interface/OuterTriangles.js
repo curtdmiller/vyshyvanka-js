@@ -2,15 +2,17 @@ import * as React from "react";
 import { RightTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
 
-export default function OuterTriangles({ patterns }) {
+export default function OuterTriangles({ patterns, delay }) {
   const [topLeftSelected, setTopLeftSelected] = React.useState(false);
   const [topRightSelected, setTopRightSelected] = React.useState(false);
 
   React.useEffect(() => {
     if (topLeftSelected) {
-      patterns[0].start(0);
+      delay.set({ wet: 0 });
+      //   patterns[0].start(0);
     } else {
-      patterns[0].stop(0);
+      delay.set({ wet: 0.2 });
+      //   patterns[0].stop(0);
     }
     return () => patterns[0].stop(0);
   }, [topLeftSelected]);

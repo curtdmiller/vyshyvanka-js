@@ -6,6 +6,7 @@ import StarDiamond from "./star-diamond";
 import TriangleInD from "./triangle-in-d";
 import AudioStartButton from "../components/AudioStart";
 import TestPage from "./tests/TestPage";
+import FreeDraw from "./FreeDraw";
 
 const menu = [
   {
@@ -17,6 +18,11 @@ const menu = [
     url: "/triangle-in-d",
     title: "Triangle In D",
     component: <TriangleInD />
+  },
+  {
+    url: "/free-draw",
+    title: "Free Draw",
+    component: <FreeDraw />
   }
 ];
 
@@ -24,6 +30,9 @@ const useStyles = makeStyles({
   embroidery: {
     maxWidth: 800,
     margin: "0 auto"
+  },
+  backLink: {
+    display: "inline-block"
   }
 });
 
@@ -52,7 +61,9 @@ export default function Layout() {
       </Route>
       {menu.map((item) => (
         <Route path={item.url} key={item.url}>
-          <Link to="/">Back</Link>
+          <Link to="/" className={classes.backLink}>
+            Back
+          </Link>
           <ColorPicker />
           <AudioStartButton />
           <div className={classes.embroidery}>{item.component}</div>
