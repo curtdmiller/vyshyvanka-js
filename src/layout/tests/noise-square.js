@@ -1,23 +1,38 @@
 import React from "react";
 import { interpolateGreys } from "d3-scale-chromatic";
 import Fabric from "../../components/Fabric";
-import CellGroup from "../../components/CellGroup";
+import ShapeBase from "../../components/shapes/ShapeBase";
 
 export default function NoiseSquare() {
   const width = 50;
-  const matrix = [...Array(width)].map((_) =>
-    [...Array(width)].map((_) => interpolateGreys(Math.random()))
-  );
-  const bwMatrix = [...Array(width)].map((_) =>
-    [...Array(width)].map((_) => interpolateGreys(Math.round(Math.random())))
-  );
+  const [grayNoise, setGrayNoise] = React.useState([]);
+  const [bwNoise, setBwNoise] = React.useState([]);
+
+  React.useEffect(() => {
+    const tmp = [];
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < width; y++) {
+        tmp.push({ fill: interpolateGreys(Math.random()), x, y });
+      }
+    }
+    setGrayNoise(tmp);
+
+    const bwtmp = [];
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < width; y++) {
+        bwtmp.push({ fill: interpolateGreys(Math.round(Math.random())), x, y });
+      }
+    }
+    setBwNoise(bwtmp);
+  }, [width]);
+
   return (
     <React.Fragment>
       <Fabric gridSize={[width, width]}>
-        <CellGroup matrix={matrix} x={0} y={0} />
+        <ShapeBase stitches={grayNoise} x={0} y={0} />
       </Fabric>
       <Fabric gridSize={[width, width]}>
-        <CellGroup matrix={bwMatrix} x={0} y={0} />
+        <ShapeBase stitches={bwNoise} x={0} y={0} />
       </Fabric>
     </React.Fragment>
   );
