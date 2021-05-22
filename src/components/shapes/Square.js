@@ -1,4 +1,5 @@
-import CellGroup from "../CellGroup";
+import React from "react";
+import ShapeBase from "./ShapeBase";
 
 export default function Square({
   width,
@@ -9,18 +10,25 @@ export default function Square({
   selected,
   setSelected
 }) {
-  const f = fill ? fill : null;
-  const matrix = Array.from(Array(width), (_, i) =>
-    Array.from(Array(width), (_, j) => {
-      if (i === 0 || i === width - 1 || j === 0 || j === width - 1) {
-        return stroke;
+  const [stitches, setStitches] = React.useState([]);
+
+  React.useEffect(() => {
+    const tmp = [];
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < width; y++) {
+        if (x == 0 || x == width - 1 || y == 0 || y == width - 1) {
+          tmp.push({ fill: stroke, x, y });
+        } else {
+          fill && tmp.push({ fill, x, y });
+        }
       }
-      return f;
-    })
-  );
+    }
+    setStitches(tmp);
+  }, [width, stroke, fill]);
+
   return (
-    <CellGroup
-      matrix={matrix}
+    <ShapeBase
+      stitches={stitches}
       x={x}
       y={y}
       selected={selected}

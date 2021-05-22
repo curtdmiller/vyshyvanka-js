@@ -1,5 +1,41 @@
-import CellGroup from "../CellGroup";
 import React from "react";
+import ShapeBase from "./ShapeBase";
+
+function generateRightStitches(orientation, sidelength, fill) {
+  const tmp = [];
+  switch (orientation) {
+    case "NE":
+      for (let y = 0; y < sidelength; y++) {
+        for (let x = 0; x < y + 1; x++) {
+          tmp.push({ fill, x, y });
+        }
+      }
+      return tmp;
+    case "SE":
+      for (let y = 0; y < sidelength; y++) {
+        for (let x = 0; x < sidelength - y; x++) {
+          tmp.push({ fill, x, y });
+        }
+      }
+      return tmp;
+    case "SW":
+      for (let y = 0; y < sidelength; y++) {
+        for (let x = y; x < sidelength; x++) {
+          tmp.push({ fill, x, y });
+        }
+      }
+      return tmp;
+    case "NW":
+      for (let y = 0; y < sidelength; y++) {
+        for (let x = sidelength - y - 1; x < sidelength; x++) {
+          tmp.push({ fill, x, y });
+        }
+      }
+      return tmp;
+    default:
+      return [];
+  }
+}
 
 export function RightTriangle({
   orientation,
@@ -10,38 +46,16 @@ export function RightTriangle({
   selected,
   setSelected
 }) {
-  function generateMatrix(orientation) {
-    switch (orientation) {
-      case "NE":
-        return Array.from(Array(sideLength), (_, i) =>
-          Array.from(Array(sideLength), (_, j) => (j <= i ? fill : null))
-        );
-      case "SE":
-        return Array.from(Array(sideLength), (_, i) =>
-          Array.from(Array(sideLength), (_, j) =>
-            j <= sideLength - 1 - i ? fill : null
-          )
-        );
-      case "SW":
-        return Array.from(Array(sideLength), (_, i) =>
-          Array.from(Array(sideLength), (_, j) => (j >= i ? fill : null))
-        );
-      case "NW":
-        return Array.from(Array(sideLength), (_, i) =>
-          Array.from(Array(sideLength), (_, j) =>
-            j >= sideLength - 1 - i ? fill : null
-          )
-        );
-      default:
-        return [];
-    }
-  }
-
-  const matrix = generateMatrix(orientation);
+  const [stitches, setStitches] = React.useState(
+    generateRightStitches(orientation, sideLength, fill)
+  );
+  React.useEffect(() => {
+    setStitches(generateRightStitches(orientation, sideLength, fill));
+  }, [orientation, sideLength, fill]);
 
   return (
-    <CellGroup
-      matrix={matrix}
+    <ShapeBase
+      stitches={stitches}
       x={x}
       y={y}
       selected={selected}
@@ -50,45 +64,39 @@ export function RightTriangle({
   );
 }
 
-function generateIsoMatrix(orientation, baseWidth, fill) {
+function generateIsoStitches(orientation, baseWidth, fill) {
   const altitude = Math.ceil(baseWidth / 2);
+  const center = altitude - 1;
+  const tmp = [];
   switch (orientation) {
     case "north":
-      return Array.from(Array(altitude), (_, i) =>
-        Array.from(Array(baseWidth), (_, j) => {
-          if (j <= i + altitude - 1 && j + 1 >= altitude - i) {
-            return fill;
-          }
-          return null;
-        })
-      );
+      for (let y = 0, n = 1; y < altitude; y++, n += 2) {
+        for (let i = 0; i < n; i++) {
+          tmp.push({ fill, x: center - y + i, y });
+        }
+      }
+      return tmp;
     case "south":
-      return Array.from(Array(altitude), (_, i) =>
-        Array.from(Array(baseWidth), (_, j) => {
-          if (j >= i && j < baseWidth - i) {
-            return fill;
-          }
-          return null;
-        })
-      );
+      for (let y = 0, n = baseWidth; y < altitude; y++, n -= 2) {
+        for (let i = 0; i < n; i++) {
+          tmp.push({ fill, x: y + i, y });
+        }
+      }
+      return tmp;
     case "east":
-      return Array.from(Array(baseWidth), (_, i) =>
-        Array.from(Array(altitude), (_, j) => {
-          if (i >= j && i < baseWidth - j) {
-            return fill;
-          }
-          return null;
-        })
-      );
+      for (let x = 0, n = baseWidth; x < altitude; x++, n -= 2) {
+        for (let i = 0; i < n; i++) {
+          tmp.push({ fill, x, y: x + i });
+        }
+      }
+      return tmp;
     case "west":
-      return Array.from(Array(baseWidth), (_, i) =>
-        Array.from(Array(altitude), (_, j) => {
-          if (i <= j + altitude - 1 && i + 1 >= altitude - j) {
-            return fill;
-          }
-          return null;
-        })
-      );
+      for (let x = 0, n = 1; x < altitude; x++, n += 2) {
+        for (let i = 0; i < n; i++) {
+          tmp.push({ fill, x, y: center - x + i });
+        }
+      }
+      return tmp;
     default:
       return [];
   }
@@ -106,19 +114,19 @@ export function IsoTriangle({
   const [baseWidth, setBaseWidth] = React.useState(
     size % 2 === 0 ? size - 1 : size
   );
-  const [matrix, setMatrix] = React.useState(
-    generateIsoMatrix(orientation, baseWidth, fill)
+  const [stitches, setStitches] = React.useState(
+    generateIsoStitches(orientation, baseWidth, fill)
   );
   React.useEffect(() => {
     setBaseWidth(size % 2 === 0 ? size - 1 : size);
   }, [size]);
   React.useEffect(() => {
-    setMatrix(generateIsoMatrix(orientation, baseWidth, fill));
+    setStitches(generateIsoStitches(orientation, baseWidth, fill));
   }, [orientation, baseWidth, fill]);
 
   return (
-    <CellGroup
-      matrix={matrix}
+    <ShapeBase
+      stitches={stitches}
       x={x}
       y={y}
       selected={selected}
