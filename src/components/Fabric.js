@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
-import { AppContext } from "../App";
+import { AppContext } from "../app-context";
 
 const useStyles = makeStyles({
   root: {

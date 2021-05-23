@@ -5,62 +5,56 @@ import Diamond from "../components/shapes/Diamond";
 import Square from "../components/shapes/Square";
 import Star from "../components/shapes/Star";
 import Single from "../components/shapes/Single";
-import { IsoTriangle } from "../components/shapes/Triangles";
 import { colors } from "../theme/colors";
 import OuterTriangles from "./star-interface/OuterTriangles";
 import InnerTriangles from "./star-interface/InnerTriangles";
 import OuterDiamonds from "./star-interface/OuterDiamonds";
 import CornerStars from "./star-interface/CornerStars";
-
-const delay = new Tone.FeedbackDelay({
-  maxDelay: 2,
-  feedback: 0.8,
-  wet: 0.2
-}).toDestination();
-
-const synthA = new Tone.FMSynth({
-  oscillator: {
-    type: "sawtooth"
-  },
-  modulationIndex: 11,
-  modulation: {
-    type: "square"
-  },
-  envelope: {
-    attack: 0.01,
-    decay: 0.2,
-    sustain: 0.2,
-    release: 2,
-    attackCurve: "sine"
-  }
-}).connect(delay);
-
-var pattern1 = new Tone.Pattern(
-  function (time, note) {
-    synthA.triggerAttackRelease(note, 0.1);
-  },
-  ["D4", "F4", "D4"],
-  "up"
-);
-var pattern2 = new Tone.Pattern(
-  function (time, note) {
-    synthA.triggerAttackRelease(note, 0.1);
-  },
-  ["D4", "E4", "Eb4", "E4", "D4"],
-  "up"
-);
-var pattern3 = new Tone.Pattern(
-  function (time, note) {
-    synthA.triggerAttackRelease(note, 0.1);
-  },
-  ["D4", "Eb4", "D4", "Eb4", "D4", "Eb4", "D4"],
-  "down"
-);
+import { AppContext } from "../app-context";
 
 export default function StarDiamond() {
+  const { delay } = React.useContext(AppContext);
+  const synthA = new Tone.FMSynth({
+    oscillator: {
+      type: "sawtooth"
+    },
+    modulationIndex: 11,
+    modulation: {
+      type: "square"
+    },
+    envelope: {
+      attack: 0.01,
+      decay: 0.2,
+      sustain: 0.2,
+      release: 2,
+      attackCurve: "sine"
+    }
+  }).connect(delay);
+
+  var pattern1 = new Tone.Pattern(
+    function (time, note) {
+      synthA.triggerAttackRelease(note, 0.1);
+    },
+    ["D4", "F4", "D4"],
+    "up"
+  );
+  var pattern2 = new Tone.Pattern(
+    function (time, note) {
+      synthA.triggerAttackRelease(note, 0.1);
+    },
+    ["D4", "E4", "Eb4", "E4", "D4"],
+    "up"
+  );
+  var pattern3 = new Tone.Pattern(
+    function (time, note) {
+      synthA.triggerAttackRelease(note, 0.1);
+    },
+    ["D4", "Eb4", "D4", "Eb4", "D4", "Eb4", "D4"],
+    "down"
+  );
   return (
     <Fabric gridSize={[37, 37]}>
-      <OuterTriangles patterns={[pattern1, pattern2, pattern3]} delay={delay} />
+      <OuterTriangles patterns={[pattern1, pattern2, pattern3]} />
       <OuterDiamonds />
       <InnerTriangles />
 

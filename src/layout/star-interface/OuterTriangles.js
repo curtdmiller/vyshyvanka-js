@@ -1,21 +1,22 @@
 import * as React from "react";
+import { AppContext } from "../../app-context";
 import { RightTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
 
-export default function OuterTriangles({ patterns, delay }) {
+export default function OuterTriangles({ patterns }) {
+  const { delay } = React.useContext(AppContext);
   const [topLeftSelected, setTopLeftSelected] = React.useState(false);
   const [topRightSelected, setTopRightSelected] = React.useState(false);
 
   React.useEffect(() => {
     if (topLeftSelected) {
-      delay.set({ wet: 0 });
-      //   patterns[0].start(0);
+      delay.wet.value = 0;
     } else {
-      delay.set({ wet: 0.2 });
-      //   patterns[0].stop(0);
+      delay.wet.vlue = 0.2;
     }
     return () => patterns[0].stop(0);
   }, [topLeftSelected]);
+
   React.useEffect(() => {
     if (topRightSelected) {
       patterns[1].start(0);
