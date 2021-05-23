@@ -4,27 +4,13 @@ import { RightTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
 
 export default function OuterTriangles({ patterns }) {
-  const { delay } = React.useContext(AppContext);
   const [topLeftSelected, setTopLeftSelected] = React.useState(false);
   const [topRightSelected, setTopRightSelected] = React.useState(false);
+  const [bottomRightSelected, setBottomRightSelected] = React.useState(false);
+  const [bottomLeftSelected, setBottomLeftSelected] = React.useState(false);
 
-  React.useEffect(() => {
-    if (topLeftSelected) {
-      delay.wet.value = 0;
-    } else {
-      delay.wet.vlue = 0.2;
-    }
-    return () => patterns[0].stop(0);
-  }, [topLeftSelected]);
-
-  React.useEffect(() => {
-    if (topRightSelected) {
-      patterns[1].start(0);
-    } else {
-      patterns[1].stop(0);
-    }
-    return () => patterns[0].stop(0);
-  }, [topRightSelected]);
+  React.useEffect(() => {}, [topLeftSelected]);
+  React.useEffect(() => {}, [topRightSelected]);
 
   return (
     <g>
@@ -52,6 +38,8 @@ export default function OuterTriangles({ patterns }) {
         fill={colors.gray}
         x={21}
         y={21}
+        selected={bottomRightSelected}
+        setSelected={setBottomRightSelected}
       />
       <RightTriangle
         orientation="NE"
@@ -59,6 +47,8 @@ export default function OuterTriangles({ patterns }) {
         fill={colors.gray}
         x={0}
         y={21}
+        selected={bottomLeftSelected}
+        setSelected={setBottomLeftSelected}
       />
     </g>
   );
