@@ -24,7 +24,6 @@ export default function OuterTriangles() {
   const bottomLeftEl = React.useRef(null);
 
   React.useEffect(() => {
-    console.log(vol);
     volume.volume.rampTo(vol, 0.5);
   }, [vol]);
 
