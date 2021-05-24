@@ -22,16 +22,24 @@ const defaultFMSettings = {
 };
 
 function TriangleGroup({ patternContent, patternDirection, triangles }) {
-  const { pitchShift, delay, reverb } = React.useContext(AppContext);
+  const { pitchShift, delay, reverb, filter, volume } = React.useContext(
+    AppContext
+  );
   const [selected, setSelected] = React.useState(false);
 
   const synth = React.useRef(
-    new Tone.FMSynth(defaultFMSettings).chain(pitchShift, delay, reverb)
+    new Tone.FMSynth(defaultFMSettings).chain(
+      pitchShift,
+      delay,
+      reverb,
+      filter,
+      volume
+    )
   );
 
   const pattern = new Tone.Pattern(
     function (time, note) {
-      synth.current.triggerAttackRelease(note, 0.1);
+      synth.current.triggerAttackRelease(note, "16n", time);
     },
     patternContent,
     patternDirection
@@ -61,12 +69,6 @@ function TriangleGroup({ patternContent, patternDirection, triangles }) {
 }
 
 export default function InnerTriangles() {
-  const { pitchShift, delay, reverb } = React.useContext(AppContext);
-  const [selectedTopLeft, setSelectedTopLeft] = React.useState(false);
-  const [selectedTopRight, setSelectedTopRight] = React.useState(false);
-  const [selectedBottomRight, setSelectedBottomRight] = React.useState(false);
-  const [selectedBottomLeft, setSelectedBottomLeft] = React.useState(false);
-
   return (
     <g>
       <TriangleGroup

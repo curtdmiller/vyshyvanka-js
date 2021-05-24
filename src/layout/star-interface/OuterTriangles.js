@@ -1,55 +1,98 @@
+import { makeStyles } from "@material-ui/core";
 import * as React from "react";
+import * as Tone from "tone";
 import { AppContext } from "../../app-context";
 import { RightTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
 
-export default function OuterTriangles({ patterns }) {
-  const [topLeftSelected, setTopLeftSelected] = React.useState(false);
-  const [topRightSelected, setTopRightSelected] = React.useState(false);
-  const [bottomRightSelected, setBottomRightSelected] = React.useState(false);
-  const [bottomLeftSelected, setBottomLeftSelected] = React.useState(false);
+const useStyles = makeStyles({
+  triangle: {
+    opacity: 1,
+    "&.clicked": {
+      opacity: 0.5
+    }
+  }
+});
 
-  React.useEffect(() => {}, [topLeftSelected]);
-  React.useEffect(() => {}, [topRightSelected]);
+export default function OuterTriangles() {
+  const { volume } = React.useContext(AppContext);
+  const [vol, setVol] = React.useState(volume.volume.value);
+  const classes = useStyles();
+  const topRightEl = React.useRef(null);
+  const topLeftEl = React.useRef(null);
+  const bottomRightEl = React.useRef(null);
+  const bottomLeftEl = React.useRef(null);
+
+  React.useEffect(() => {
+    console.log(vol);
+    volume.volume.rampTo(vol, 0.5);
+  }, [vol]);
+
+  function blink(el) {
+    el.classList.toggle("clicked");
+    setTimeout(() => el.classList.toggle("clicked"), 50);
+  }
+
+  function tempoDown(e) {
+    blink(topLeftEl.current);
+    Tone.Transport.bpm.value = Tone.Transport.bpm.value - 5;
+  }
+
+  function tempoUp(e) {
+    blink(topRightEl.current);
+    Tone.Transport.bpm.value = Tone.Transport.bpm.value + 5;
+  }
+
+  function volumeUp(e) {
+    blink(bottomRightEl.current);
+    if (vol <= 0) {
+      setVol(vol + 2);
+    }
+  }
+
+  function volumeDown(e) {
+    blink(bottomLeftEl.current);
+    setVol(vol - 2);
+  }
 
   return (
     <g>
-      <RightTriangle
-        orientation="SE"
-        sideLength={16}
-        fill={colors.gray}
-        x={0}
-        y={0}
-        selected={topLeftSelected}
-        setSelected={setTopLeftSelected}
-      />
-      <RightTriangle
-        orientation="SW"
-        sideLength={16}
-        fill={colors.gray}
-        x={21}
-        y={0}
-        selected={topRightSelected}
-        setSelected={setTopRightSelected}
-      />
-      <RightTriangle
-        orientation="NW"
-        sideLength={16}
-        fill={colors.gray}
-        x={21}
-        y={21}
-        selected={bottomRightSelected}
-        setSelected={setBottomRightSelected}
-      />
-      <RightTriangle
-        orientation="NE"
-        sideLength={16}
-        fill={colors.gray}
-        x={0}
-        y={21}
-        selected={bottomLeftSelected}
-        setSelected={setBottomLeftSelected}
-      />
+      <g onClick={tempoDown} className={classes.triangle} ref={topLeftEl}>
+        <RightTriangle
+          orientation="SE"
+          sideLength={16}
+          fill={colors.gray}
+          x={0}
+          y={0}
+        />
+      </g>
+      <g onClick={tempoUp} className={classes.triangle} ref={topRightEl}>
+        <RightTriangle
+          orientation="SW"
+          sideLength={16}
+          fill={colors.gray}
+          x={21}
+          y={0}
+        />
+      </g>
+      <g onClick={volumeUp} className={classes.triangle} ref={bottomRightEl}>
+        <RightTriangle
+          orientation="NW"
+          sideLength={16}
+          fill={colors.gray}
+          x={21}
+          y={21}
+        />
+      </g>
+      <g onClick={volumeDown} className={classes.triangle} ref={bottomLeftEl}>
+        <RightTriangle
+          orientation="NE"
+          sideLength={16}
+          fill={colors.gray}
+          x={0}
+          y={21}
+        />
+      </g>
     </g>
   );
 }

@@ -42,7 +42,6 @@ export default function CornerStars() {
   React.useEffect(() => {
     reverb.wet.value = selectedEast ? 0 : 1;
   }, [selectedEast]);
-  console.log(reverb.wet.value);
   function northClickHandler(e) {
     setCurrentPitchShift(currentPitchShift + 1);
   }
