@@ -22,11 +22,11 @@ export default function Line({
       for (let i = 0; i < length; i++) {
         tempStitches.push({ fill: color, x: i, y: 0 });
       }
-    } else if (angle === "diagonal-up") {
+    } else if (angle === "diagonal-down") {
       for (let i = 0; i < length; i++) {
         tempStitches.push({ fill: color, x: i, y: i });
       }
-    } else if (angle === "diagonal-down") {
+    } else if (angle === "diagonal-up") {
       for (let i = 0; i < length; i++) {
         tempStitches.push({ fill: color, x: i, y: length - i - 1 });
       }

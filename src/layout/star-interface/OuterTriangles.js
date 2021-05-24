@@ -45,7 +45,7 @@ export default function OuterTriangles() {
 
   function volumeUp(e) {
     blink(bottomRightEl.current);
-    if (vol <= 0) {
+    if (vol < -4) {
       setVol(vol + 2);
     }
   }
