@@ -1,9 +1,10 @@
 import { createContext } from "react";
 import * as Tone from "tone";
+import { colors } from "./theme/colors";
 
 export const defaultAppContext = {
   cellSize: 24,
-  selectFill: "#fa28ff",
+  selectFill: colors.blue,
   setSelectFill: () => {},
   isAudioStarted: false,
   setIsAudioStarted: () => {},

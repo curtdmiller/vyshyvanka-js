@@ -11,7 +11,7 @@ export default function OuterDiamonds() {
         diameter={37}
         cx={18}
         cy={18}
-        stroke={colors.green}
+        stroke={colors.darkGreen}
         selected={selectedGreen}
         setSelected={setSelectedGreen}
       />
@@ -19,7 +19,7 @@ export default function OuterDiamonds() {
         diameter={35}
         cx={18}
         cy={18}
-        stroke={colors.green}
+        stroke={colors.darkGreen}
         selected={selectedGreen}
         setSelected={setSelectedGreen}
       />
@@ -27,7 +27,7 @@ export default function OuterDiamonds() {
         diameter={33}
         cx={18}
         cy={18}
-        stroke={colors.green}
+        stroke={colors.darkGreen}
         selected={selectedGreen}
         setSelected={setSelectedGreen}
       />
@@ -35,7 +35,7 @@ export default function OuterDiamonds() {
         diameter={31}
         cx={18}
         cy={18}
-        stroke={colors.green}
+        stroke={colors.darkGreen}
         selected={selectedGreen}
         setSelected={setSelectedGreen}
       />

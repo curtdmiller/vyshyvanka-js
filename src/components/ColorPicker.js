@@ -4,6 +4,7 @@ import { Palette } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import { AppContext } from "../app-context";
 import { CompactPicker } from "react-color";
+import { colors } from "../theme/colors";
 
 const useStyles = makeStyles({
   root: {
@@ -20,6 +21,29 @@ const useStyles = makeStyles({
   }
 });
 
+const customColorOptions = [
+  "#000000",
+  colors.darkGray,
+  colors.gray,
+  colors.offWhite,
+  "#FFFFFF",
+  colors.darkRed,
+  colors.red,
+  colors.lightRed,
+  colors.darkOrange,
+  colors.orange,
+  colors.lightOrange,
+  colors.darkYellow,
+  colors.yellow,
+  colors.lightYellow,
+  colors.darkGreen,
+  colors.green,
+  colors.lightGreen,
+  colors.darkBlue,
+  colors.blue,
+  colors.lightBlue
+];
+
 export default function ColorPicker() {
   const classes = useStyles();
   const { cellSize, selectFill, setSelectFill } = React.useContext(AppContext);
@@ -35,6 +59,7 @@ export default function ColorPicker() {
       <div style={{ display: colorPickerOpen ? "block" : "none" }}>
         <CompactPicker
           color={selectFill}
+          colors={customColorOptions}
           onChangeComplete={handleColorChange}
         />
       </div>
