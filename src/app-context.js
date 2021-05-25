@@ -10,10 +10,11 @@ export const defaultAppContext = {
   pitchShift: new Tone.PitchShift(),
   delay: new Tone.FeedbackDelay({
     maxDelay: 2,
-    feedback: 0.8,
+    feedback: 0.5,
     wet: 0.2
   }),
   reverb: new Tone.Freeverb(),
+  distortion: new Tone.Distortion(),
   filter: new Tone.Filter(4000, "lowpass"),
   volume: new Tone.Volume(-12).toDestination()
 };

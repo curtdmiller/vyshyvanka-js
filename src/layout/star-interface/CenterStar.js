@@ -6,7 +6,7 @@ import { colors } from "../../theme/colors";
 
 const monoSettings = {
   oscillator: { type: "sawtooth" },
-  envelope: { attack: 0.001, decay: 0.1, release: 1, sustain: 0.5 },
+  envelope: { attack: 0.001, decay: 0.1, release: 0.5, sustain: 0.5 },
   filter: {
     Q: 1,
     rolloff: -12,
@@ -20,7 +20,8 @@ const monoSettings = {
     octaves: 3,
     release: 2,
     sustain: 0.5
-  }
+  },
+  volume: -12
 };
 
 export default function CenterStar() {

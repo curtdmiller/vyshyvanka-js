@@ -6,11 +6,11 @@ import { colors } from "../../theme/colors";
 
 const defaultFMSettings = {
   oscillator: {
-    type: "sawtooth"
+    type: "sine"
   },
-  modulationIndex: 11,
+  modulationIndex: 20,
   modulation: {
-    type: "square"
+    type: "sawtooth"
   },
   envelope: {
     attack: 0.01,
@@ -18,40 +18,41 @@ const defaultFMSettings = {
     sustain: 0.2,
     release: 2,
     attackCurve: "sine"
-  }
+  },
+  volume: -12
 };
 
 function TriangleGroup({ patternContent, patternDirection, triangles }) {
-  const { pitchShift, delay, reverb, filter, volume } = React.useContext(
-    AppContext
-  );
+  const { pitchShift, delay, reverb, volume } = React.useContext(AppContext);
   const [selected, setSelected] = React.useState(false);
-
+  const gain = React.useRef(new Tone.Gain(1));
   const synth = React.useRef(
     new Tone.FMSynth(defaultFMSettings).chain(
+      gain.current,
       pitchShift,
       delay,
       reverb,
-      filter,
       volume
     )
   );
 
-  const pattern = new Tone.Pattern(
-    function (time, note) {
-      synth.current.triggerAttackRelease(note, "16n", time);
-    },
-    patternContent,
-    patternDirection
+  const pattern = React.useRef(
+    new Tone.Pattern(
+      function (time, note) {
+        synth.current.triggerAttackRelease(note, "16n", time);
+      },
+      patternContent,
+      patternDirection
+    )
   );
 
   React.useEffect(() => {
     if (selected) {
-      pattern.start(0);
+      pattern.current.start(0);
     } else {
-      pattern.stop(0);
+      pattern.current.stop(0);
     }
-    return () => pattern.stop(0);
+    return () => pattern.current.stop(0);
   }, [selected]);
 
   return triangles.map((triangle) => (
