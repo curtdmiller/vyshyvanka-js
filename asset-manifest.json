@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/vyshyvanka-js/static/css/main.b84552be.chunk.css",
-    "main.js": "/vyshyvanka-js/static/js/main.e6aff830.chunk.js",
-    "main.js.map": "/vyshyvanka-js/static/js/main.e6aff830.chunk.js.map",
+    "main.js": "/vyshyvanka-js/static/js/main.f475ceba.chunk.js",
+    "main.js.map": "/vyshyvanka-js/static/js/main.f475ceba.chunk.js.map",
     "runtime-main.js": "/vyshyvanka-js/static/js/runtime-main.5f74b15b.js",
     "runtime-main.js.map": "/vyshyvanka-js/static/js/runtime-main.5f74b15b.js.map",
     "static/js/2.c4bd77bf.chunk.js": "/vyshyvanka-js/static/js/2.c4bd77bf.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.5f74b15b.js",
     "static/js/2.c4bd77bf.chunk.js",
     "static/css/main.b84552be.chunk.css",
-    "static/js/main.e6aff830.chunk.js"
+    "static/js/main.f475ceba.chunk.js"
   ]
 }
