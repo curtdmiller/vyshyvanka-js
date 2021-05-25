@@ -25,15 +25,8 @@ const defaultFMSettings = {
 function TriangleGroup({ patternContent, patternDirection, triangles }) {
   const { pitchShift, delay, reverb, volume } = React.useContext(AppContext);
   const [selected, setSelected] = React.useState(false);
-  const gain = React.useRef(new Tone.Gain(1));
   const synth = React.useRef(
-    new Tone.FMSynth(defaultFMSettings).chain(
-      gain.current,
-      pitchShift,
-      delay,
-      reverb,
-      volume
-    )
+    new Tone.FMSynth(defaultFMSettings).chain(pitchShift, delay, reverb, volume)
   );
 
   const pattern = React.useRef(

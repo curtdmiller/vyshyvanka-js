@@ -37,10 +37,10 @@ export default function CornerStars() {
   const [currentPitchShift, setCurrentPitchShift] = React.useState(0);
 
   React.useEffect(() => {
-    delay.wet.value = selectedWest ? 0 : 0.2;
+    delay.wet.value = selectedWest ? 0.2 : 0;
   }, [selectedWest]);
   React.useEffect(() => {
-    reverb.wet.value = selectedEast ? 0 : 1;
+    reverb.wet.value = selectedEast ? 1 : 0;
   }, [selectedEast]);
   function northClickHandler(e) {
     setCurrentPitchShift(currentPitchShift + 1);

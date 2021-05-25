@@ -14,7 +14,7 @@ export const defaultAppContext = {
     wet: 0.2
   }),
   reverb: new Tone.Freeverb(),
-  distortion: new Tone.Distortion(),
+  distortion: new Tone.Distortion(0.8),
   filter: new Tone.Filter(4000, "lowpass"),
   volume: new Tone.Volume(-12).toDestination()
 };

@@ -23,34 +23,35 @@ const monoSettings = {
   },
   volume: -12
 };
-
+const synthUp = new Tone.MonoSynth(monoSettings);
+const synthDown = new Tone.MonoSynth(monoSettings);
 export default function CenterStar() {
-  const { pitchShift, delay, reverb, volume } = React.useContext(AppContext);
-  const synthUp = React.useRef(
-    new Tone.MonoSynth(monoSettings).chain(pitchShift, delay, reverb, volume)
+  const { pitchShift, delay, reverb, distortion, volume } = React.useContext(
+    AppContext
   );
   const patternUp = new Tone.Pattern(
     function (time, note) {
-      synthUp.current.triggerAttackRelease(note, 0.1, time);
+      synthUp.triggerAttackRelease(note, 0.1, time);
     },
     ["D4", "F4", "G4", "A4", "458", "C4"],
     "up"
   );
-  const synthDown = React.useRef(
-    new Tone.MonoSynth(monoSettings).chain(pitchShift, delay, reverb, volume)
-  );
   var patternDown = new Tone.Pattern(
     function (time, note) {
-      synthDown.current.triggerAttackRelease(note, 0.1, time);
+      synthDown.triggerAttackRelease(note, 0.1, time);
     },
     ["C4", "D4", "E4", "G4", "A4", "458"],
     "down"
   );
 
-  const [horizontalSelected, setHorizontalSelected] = React.useState(false);
-  const [verticalSelected, setVerticalSelected] = React.useState(false);
+  const [plusSelected, setPlusSelected] = React.useState(false);
   const [downSelected, setDownSelected] = React.useState(false);
   const [upSelected, setUpSelected] = React.useState(false);
+
+  React.useEffect(() => {
+    synthUp.chain(pitchShift, delay, reverb, volume);
+    synthDown.chain(pitchShift, delay, reverb, volume);
+  }, []);
 
   React.useEffect(() => {
     downSelected ? patternDown.start(0) : patternDown.stop(0);
@@ -62,6 +63,15 @@ export default function CenterStar() {
     return () => patternUp.stop(0);
   }, [upSelected]);
 
+  React.useEffect(() => {
+    if (plusSelected) {
+      distortion.distortion = 0.8;
+      volume.volume.rampTo(-20, 0.1, 0);
+    } else {
+      distortion.distortion = 0;
+      volume.volume.rampTo(-12, 0.1, 0.5);
+    }
+  }, [plusSelected]);
   return (
     <g>
       <Line
@@ -70,8 +80,8 @@ export default function CenterStar() {
         color={colors.orange}
         x={10}
         y={18}
-        selected={horizontalSelected}
-        setSelected={setHorizontalSelected}
+        selected={plusSelected}
+        setSelected={setPlusSelected}
       />
       <Line
         length={17}
@@ -79,8 +89,8 @@ export default function CenterStar() {
         color={colors.orange}
         x={18}
         y={10}
-        selected={verticalSelected}
-        setSelected={setVerticalSelected}
+        selected={plusSelected}
+        setSelected={setPlusSelected}
       />
       <Line
         length={11}
