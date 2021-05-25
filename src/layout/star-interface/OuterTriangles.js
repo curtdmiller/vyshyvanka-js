@@ -33,24 +33,32 @@ export default function OuterTriangles() {
   }
 
   function tempoDown(e) {
-    blink(topLeftEl.current);
+    if (!e.shiftKey) {
+      blink(topLeftEl.current);
+    }
     Tone.Transport.bpm.value = Tone.Transport.bpm.value - 5;
   }
 
   function tempoUp(e) {
-    blink(topRightEl.current);
+    if (!e.shiftKey) {
+      blink(topRightEl.current);
+    }
     Tone.Transport.bpm.value = Tone.Transport.bpm.value + 5;
   }
 
   function volumeUp(e) {
-    blink(bottomRightEl.current);
+    if (!e.shiftKey) {
+      blink(bottomRightEl.current);
+    }
     if (vol < -4) {
       setVol(vol + 2);
     }
   }
 
   function volumeDown(e) {
-    blink(bottomLeftEl.current);
+    if (!e.shiftKey) {
+      blink(bottomLeftEl.current);
+    }
     setVol(vol - 2);
   }
 

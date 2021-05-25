@@ -12,13 +12,13 @@ export default function ShapeBase({ stitches, x, y, selected, setSelected }) {
   }, [stitches]);
 
   function shapeClickHandler(event) {
-    if (event.shiftKey && setSelected && selected != null) {
+    if (!event.shiftKey && setSelected && selected != null) {
       setSelected(!selected);
     }
   }
 
   function stitchClickHandler(event) {
-    if (!event.shiftKey) {
+    if (event.shiftKey) {
       const newStitches = [...stitchState];
       const id = event.currentTarget.dataset.id;
       newStitches[id].selected = !newStitches[id].selected;

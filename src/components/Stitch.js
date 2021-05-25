@@ -3,7 +3,7 @@ import { AppContext } from "../app-context";
 
 export default function Stitch({ fill, x, y, id, selected, handleClick }) {
   const [currentFill, setCurrentFill] = React.useState(fill);
-  const { cellSize, selectFill, setSelectFill } = React.useContext(AppContext);
+  const { cellSize, selectFill } = React.useContext(AppContext);
 
   React.useEffect(() => {
     if (selected) {
