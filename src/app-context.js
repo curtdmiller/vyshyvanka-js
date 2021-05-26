@@ -103,6 +103,13 @@ const horizontalLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
   volume
 );
 
+const outerDiamondSynth = new Tone.FMSynth({ volume: -5 }).chain(
+  pitchShift,
+  delay,
+  reverb,
+  volume
+);
+
 export const defaultAppContext = {
   cellSize: 24,
   selectFill: colors.blue,
@@ -121,7 +128,8 @@ export const defaultAppContext = {
   ascLineSynth,
   descLineSynth,
   verticalLineSynth,
-  horizontalLineSynth
+  horizontalLineSynth,
+  outerDiamondSynth
 };
 
 export const AppContext = createContext(defaultAppContext);
