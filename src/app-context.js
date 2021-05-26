@@ -49,7 +49,6 @@ const delay = new Tone.FeedbackDelay({
   wet: 0.2
 });
 const reverb = new Tone.Freeverb();
-const filter = new Tone.Filter(4000, "lowpass");
 const volume = new Tone.Volume(-12).toDestination();
 
 // SYNTHS
@@ -59,12 +58,10 @@ const neQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
   reverb,
   volume
 );
-const seQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
-);
+const seQuadrantSynth = new Tone.FMSynth({
+  ...defaultFMSettings,
+  volume: 0
+}).chain(pitchShift, delay, reverb, volume);
 const swQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
   pitchShift,
   delay,
@@ -103,7 +100,7 @@ const horizontalLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
   volume
 );
 
-const outerDiamondSynth = new Tone.FMSynth({ volume: -5 }).chain(
+const outerDiamondSynth = new Tone.FMSynth({ volume: -9 }).chain(
   pitchShift,
   delay,
   reverb,
@@ -119,7 +116,6 @@ export const defaultAppContext = {
   pitchShift,
   delay,
   reverb,
-  filter,
   volume,
   neQuadrantSynth,
   seQuadrantSynth,

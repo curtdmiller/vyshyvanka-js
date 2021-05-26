@@ -7,7 +7,6 @@ import InnerTriangles from "./star-interface/InnerTriangles";
 import OuterDiamonds from "./star-interface/OuterDiamonds";
 import CornerStars from "./star-interface/CornerStars";
 import CenterStar from "./star-interface/CenterStar";
-import InnerSquare from "./star-interface/InnerSquare";
 
 export default function StarDiamond() {
   return (
@@ -16,9 +15,7 @@ export default function StarDiamond() {
       <OuterDiamonds />
       <InnerTriangles />
       <CenterStar />
-      {/* Inner Diamond */}
       <Diamond diameter={25} cx={18} cy={18} stroke={colors.orange} />
-      <InnerSquare />
       <CornerStars />
     </Fabric>
   );

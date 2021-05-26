@@ -2,6 +2,7 @@ import * as React from "react";
 import { AppContext } from "../../app-context";
 import Diamond from "../../components/shapes/Diamond";
 import Single from "../../components/shapes/Single";
+import Square from "../../components/shapes/Square";
 import { colors } from "../../theme/colors";
 
 function CornerStar({ cx, cy, selected, setSelected, clickHandler }) {
@@ -36,6 +37,12 @@ export default function CornerStars() {
   const [selectedSouth, setSelectedSouth] = React.useState(false);
   const [currentPitchShift, setCurrentPitchShift] = React.useState(0);
 
+  function resetClickHandler() {
+    setCurrentPitchShift(0);
+    setSelectedWest(false);
+    setSelectedEast(false);
+  }
+
   React.useEffect(() => {
     delay.wet.value = selectedWest ? 0.2 : 0;
   }, [selectedWest]);
@@ -43,10 +50,14 @@ export default function CornerStars() {
     reverb.wet.value = selectedEast ? 1 : 0;
   }, [selectedEast]);
   function northClickHandler(e) {
-    setCurrentPitchShift(currentPitchShift + 1);
+    if (!e.shiftKey) {
+      setCurrentPitchShift(currentPitchShift + 1);
+    }
   }
   function southClickHandler(e) {
-    setCurrentPitchShift(currentPitchShift - 1);
+    if (!e.shiftKey) {
+      setCurrentPitchShift(currentPitchShift - 1);
+    }
   }
   React.useEffect(() => {
     pitchShift.pitch = currentPitchShift;
@@ -90,6 +101,10 @@ export default function CornerStars() {
         setSelected={setSelectedSouth}
         clickHandler={southClickHandler}
       />
+      <g onClick={resetClickHandler}>
+        <Square width={3} x={17} y={17} stroke={colors.yellow} />
+        <Single x={18} y={18} stroke={colors.gray} />
+      </g>
     </g>
   );
 }
