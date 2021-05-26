@@ -4,54 +4,48 @@ import { AppContext } from "../../app-context";
 import Line from "../../components/shapes/Line";
 import { colors } from "../../theme/colors";
 
-const monoSettings = {
-  oscillator: { type: "sawtooth" },
-  envelope: { attack: 0.001, decay: 0.1, release: 0.5, sustain: 0.5 },
-  filter: {
-    Q: 1,
-    rolloff: -12,
-    type: "lowpass"
-  },
-  filterEnvelope: {
-    attack: 0.4,
-    baseFrequency: 150,
-    decay: 0.2,
-    exponent: 2,
-    octaves: 3,
-    release: 2,
-    sustain: 0.5
-  },
-  volume: -12
-};
-const synthUp = new Tone.MonoSynth(monoSettings);
-const synthDown = new Tone.MonoSynth(monoSettings);
 export default function CenterStar() {
-  const { pitchShift, delay, reverb, distortion, volume } = React.useContext(
-    AppContext
-  );
+  const {
+    ascLineSynth,
+    descLineSynth,
+    verticalLineSynth,
+    horizontalLineSynth
+  } = React.useContext(AppContext);
   const patternUp = new Tone.Pattern(
     function (time, note) {
-      synthUp.triggerAttackRelease(note, 0.1, time);
+      ascLineSynth.triggerAttackRelease(note, 0.1, time);
     },
     ["D4", "F4", "G4", "A4", "458", "C4"],
     "up"
   );
   var patternDown = new Tone.Pattern(
     function (time, note) {
-      synthDown.triggerAttackRelease(note, 0.1, time);
+      descLineSynth.triggerAttackRelease(note, 0.1, time);
     },
     ["C4", "D4", "E4", "G4", "A4", "458"],
     "down"
   );
+  var verticalPattern = new Tone.Pattern({
+    callback: function (time, note) {
+      verticalLineSynth.triggerAttackRelease(note, 0.8);
+    },
+    values: ["D4", "F4", "G4", "458"],
+    pattern: "random",
+    playbackRate: 0.25
+  });
+  var horizontalPattern = new Tone.Pattern({
+    callback: function (time, note) {
+      horizontalLineSynth.triggerAttackRelease(note, 0.8);
+    },
+    values: ["D4", "F4", "G4", "458"],
+    pattern: "random",
+    playbackRate: 0.25
+  });
 
-  const [plusSelected, setPlusSelected] = React.useState(false);
+  const [horizontalSelected, setHorizontalSelected] = React.useState(false);
+  const [verticalSelected, setVerticalSelected] = React.useState(false);
   const [downSelected, setDownSelected] = React.useState(false);
   const [upSelected, setUpSelected] = React.useState(false);
-
-  React.useEffect(() => {
-    synthUp.chain(pitchShift, delay, reverb, volume);
-    synthDown.chain(pitchShift, delay, reverb, volume);
-  }, []);
 
   React.useEffect(() => {
     downSelected ? patternDown.start(0) : patternDown.stop(0);
@@ -64,14 +58,14 @@ export default function CenterStar() {
   }, [upSelected]);
 
   React.useEffect(() => {
-    if (plusSelected) {
-      distortion.distortion = 0.8;
-      volume.volume.rampTo(-20, 0.1, 0);
-    } else {
-      distortion.distortion = 0;
-      volume.volume.rampTo(-12, 0.1, 0.5);
-    }
-  }, [plusSelected]);
+    verticalSelected ? verticalPattern.start(0) : verticalPattern.stop(0);
+    return () => verticalPattern.stop(0);
+  }, [verticalSelected]);
+
+  React.useEffect(() => {
+    horizontalSelected ? horizontalPattern.start(0) : horizontalPattern.stop(0);
+    return () => horizontalPattern.stop(0);
+  }, [horizontalSelected]);
   return (
     <g>
       <Line
@@ -80,8 +74,8 @@ export default function CenterStar() {
         color={colors.orange}
         x={10}
         y={18}
-        selected={plusSelected}
-        setSelected={setPlusSelected}
+        selected={horizontalSelected}
+        setSelected={setHorizontalSelected}
       />
       <Line
         length={17}
@@ -89,8 +83,8 @@ export default function CenterStar() {
         color={colors.orange}
         x={18}
         y={10}
-        selected={plusSelected}
-        setSelected={setPlusSelected}
+        selected={verticalSelected}
+        setSelected={setVerticalSelected}
       />
       <Line
         length={11}

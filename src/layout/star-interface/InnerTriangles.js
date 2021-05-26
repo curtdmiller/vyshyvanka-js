@@ -43,7 +43,6 @@ function TriangleGroup({ patternContent, patternDirection, triangles, synth }) {
 export default function InnerTriangles() {
   const { nwQuadrantSynth, neQuadrantSynth, swQuadrantSynth, seQuadrantSynth } =
     React.useContext(AppContext);
-  console.log(nwQuadrantSynth);
   return (
     <g>
       <TriangleGroup
