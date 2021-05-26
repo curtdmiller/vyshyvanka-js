@@ -4,35 +4,13 @@ import { AppContext } from "../../app-context";
 import { IsoTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
 
-const defaultFMSettings = {
-  oscillator: {
-    type: "sine"
-  },
-  modulationIndex: 20,
-  modulation: {
-    type: "sawtooth"
-  },
-  envelope: {
-    attack: 0.01,
-    decay: 0.2,
-    sustain: 0.2,
-    release: 2,
-    attackCurve: "sine"
-  },
-  volume: -12
-};
-
-function TriangleGroup({ patternContent, patternDirection, triangles }) {
-  const { pitchShift, delay, reverb, volume } = React.useContext(AppContext);
+function TriangleGroup({ patternContent, patternDirection, triangles, synth }) {
   const [selected, setSelected] = React.useState(false);
-  const synth = React.useRef(
-    new Tone.FMSynth(defaultFMSettings).chain(pitchShift, delay, reverb, volume)
-  );
 
   const pattern = React.useRef(
     new Tone.Pattern(
       function (time, note) {
-        synth.current.triggerAttackRelease(note, "16n", time);
+        synth.triggerAttackRelease(note, "16n", time);
       },
       patternContent,
       patternDirection
@@ -63,6 +41,9 @@ function TriangleGroup({ patternContent, patternDirection, triangles }) {
 }
 
 export default function InnerTriangles() {
+  const { nwQuadrantSynth, neQuadrantSynth, swQuadrantSynth, seQuadrantSynth } =
+    React.useContext(AppContext);
+  console.log(nwQuadrantSynth);
   return (
     <g>
       <TriangleGroup
@@ -72,6 +53,7 @@ export default function InnerTriangles() {
           { orientation: "north", size: 9, x: 8, y: 13 },
           { orientation: "west", size: 9, x: 13, y: 8 }
         ]}
+        synth={nwQuadrantSynth}
       />
       <TriangleGroup
         patternContent={["D4", "E4", "Eb4", "E4", "D4"]}
@@ -80,6 +62,7 @@ export default function InnerTriangles() {
           { orientation: "east", size: 9, x: 19, y: 8 },
           { orientation: "north", size: 9, x: 20, y: 13 }
         ]}
+        synth={neQuadrantSynth}
       />
       <TriangleGroup
         patternContent={["D4", "Eb4", "D4", "Eb4", "D4", "Eb4", "D4"]}
@@ -88,6 +71,7 @@ export default function InnerTriangles() {
           { orientation: "south", size: 9, x: 8, y: 19 },
           { orientation: "west", size: 9, x: 13, y: 20 }
         ]}
+        synth={swQuadrantSynth}
       />
       <TriangleGroup
         patternContent={["D2"]}
@@ -96,6 +80,7 @@ export default function InnerTriangles() {
           { orientation: "east", size: 9, x: 19, y: 20 },
           { orientation: "south", size: 9, x: 20, y: 19 }
         ]}
+        synth={seQuadrantSynth}
       />
     </g>
   );
