@@ -96,9 +96,19 @@ const horizontalLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
   volume
 );
 
+const outerDiamondGain = new Tone.Gain(-12, "decibels").connect(
+  Tone.Destination
+);
+
+const outerDiamondDelay = new Tone.FeedbackDelay({
+  maxDelay: 2,
+  feedback: 0.5,
+  wet: 0.2
+}).connect(outerDiamondGain);
+
 const outerDiamondSynth = new Tone.FMSynth({ volume: -9 }).chain(
+  outerDiamondDelay,
   pitchShift,
-  delay,
   reverb,
   volume
 );
@@ -121,7 +131,8 @@ export const defaultAppContext = {
   descLineSynth,
   verticalLineSynth,
   horizontalLineSynth,
-  outerDiamondSynth
+  outerDiamondSynth,
+  outerDiamondDelay
 };
 
 export const AppContext = createContext(defaultAppContext);

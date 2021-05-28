@@ -7,6 +7,8 @@ import { colors } from "../../theme/colors";
 export default function OuterDiamonds() {
   const { outerDiamondSynth } = React.useContext(AppContext);
   const [selectedGreen, setSelectedGreen] = React.useState(false);
+  const { outerDiamondDelay } = React.useContext(AppContext);
+
   const sequence = new Tone.Sequence(
     (time, note) => {
       outerDiamondSynth.triggerAttackRelease(note, "16t", time);
@@ -14,9 +16,22 @@ export default function OuterDiamonds() {
     ["D4", [null, "C3"], ["F4", "G4", "A4", "458"]],
     "4n"
   );
+  const delaySequence = new Tone.Sequence(
+    (time, delayTime) => {
+      outerDiamondDelay.delayTime.rampTo(delayTime, 0.25, time);
+    },
+    ["4n", "8n", "16n"],
+    "1n"
+  );
 
   React.useEffect(() => {
-    selectedGreen ? sequence.start(0) : sequence.stop(0);
+    if (selectedGreen) {
+      sequence.start(0);
+      delaySequence.start(10);
+    } else {
+      sequence.stop(0);
+      delaySequence.stop(0);
+    }
     return () => sequence.stop(0);
   }, [selectedGreen]);
   return (
