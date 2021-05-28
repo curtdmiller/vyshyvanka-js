@@ -1,14 +1,25 @@
 import * as React from "react";
+import { AppContext } from "../../app-context";
 import G from "../G";
-import Stitch from "../Stitch";
 
 export default function ShapeBase({ stitches, x, y, selected, setSelected }) {
+  const { cellSize, selectFill } = React.useContext(AppContext);
   const [stitchState, setStitchState] = React.useState(
-    stitches.map((stitch) => ({ ...stitch, selected: false }))
+    stitches.map((stitch) => ({
+      ...stitch,
+      selected: false,
+      originalFill: stitch.fill
+    }))
   );
 
   React.useEffect(() => {
-    setStitchState(stitches.map((stitch) => ({ ...stitch, selected: false })));
+    setStitchState(
+      stitches.map((stitch) => ({
+        ...stitch,
+        selected: false,
+        originalFill: stitch.fill
+      }))
+    );
   }, [stitches]);
 
   function shapeClickHandler(event) {
@@ -20,8 +31,9 @@ export default function ShapeBase({ stitches, x, y, selected, setSelected }) {
   function stitchClickHandler(event) {
     if (event.shiftKey) {
       const newStitches = [...stitchState];
-      const id = event.currentTarget.dataset.id;
-      newStitches[id].selected = !newStitches[id].selected;
+      const cur = newStitches[event.currentTarget.dataset.id];
+      cur.selected = !cur.selected;
+      cur.fill = cur.selected ? selectFill : cur.originalFill;
       setStitchState(newStitches);
     }
   }
@@ -29,13 +41,14 @@ export default function ShapeBase({ stitches, x, y, selected, setSelected }) {
   return (
     <G x={x} y={y} fillOpacity={selected ? 0.5 : 1} onClick={shapeClickHandler}>
       {stitchState.map((stitch, i) => (
-        <Stitch
+        <rect
+          width={cellSize}
+          height={cellSize}
           fill={stitch.fill}
-          x={stitch.x}
-          y={stitch.y}
-          selected={stitch.selected}
-          handleClick={stitchClickHandler}
-          id={i}
+          x={stitch.x * cellSize + 0.5}
+          y={stitch.y * cellSize + 0.5}
+          onClick={stitchClickHandler}
+          data-id={i}
           key={`stitch-${i}`}
         />
       ))}

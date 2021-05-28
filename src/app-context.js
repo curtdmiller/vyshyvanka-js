@@ -49,7 +49,7 @@ const delay = new Tone.FeedbackDelay({
   wet: 0.2
 });
 const reverb = new Tone.Freeverb();
-const volume = new Tone.Volume(-12).toDestination();
+const volume = new Tone.Volume(-6).toDestination();
 
 // SYNTHS
 const neQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
@@ -75,18 +75,14 @@ const nwQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
   volume
 );
 
-const ascLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
-);
-const descLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
-);
+const ascLineSynth = new Tone.MonoSynth({
+  ...defaultMonoSettings,
+  volume: -6
+}).chain(pitchShift, delay, reverb, volume);
+const descLineSynth = new Tone.MonoSynth({
+  ...defaultMonoSettings,
+  volume: -6
+}).chain(pitchShift, delay, reverb, volume);
 const verticalLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
   pitchShift,
   delay,
