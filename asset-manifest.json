@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/vyshyvanka-js/static/css/main.b84552be.chunk.css",
-    "main.js": "/vyshyvanka-js/static/js/main.ee865045.chunk.js",
-    "main.js.map": "/vyshyvanka-js/static/js/main.ee865045.chunk.js.map",
+    "main.js": "/vyshyvanka-js/static/js/main.9d08a343.chunk.js",
+    "main.js.map": "/vyshyvanka-js/static/js/main.9d08a343.chunk.js.map",
     "runtime-main.js": "/vyshyvanka-js/static/js/runtime-main.5f74b15b.js",
     "runtime-main.js.map": "/vyshyvanka-js/static/js/runtime-main.5f74b15b.js.map",
-    "static/js/2.101a9552.chunk.js": "/vyshyvanka-js/static/js/2.101a9552.chunk.js",
-    "static/js/2.101a9552.chunk.js.map": "/vyshyvanka-js/static/js/2.101a9552.chunk.js.map",
+    "static/js/2.a74fb31c.chunk.js": "/vyshyvanka-js/static/js/2.a74fb31c.chunk.js",
+    "static/js/2.a74fb31c.chunk.js.map": "/vyshyvanka-js/static/js/2.a74fb31c.chunk.js.map",
     "index.html": "/vyshyvanka-js/index.html",
     "static/css/main.b84552be.chunk.css.map": "/vyshyvanka-js/static/css/main.b84552be.chunk.css.map",
-    "static/js/2.101a9552.chunk.js.LICENSE.txt": "/vyshyvanka-js/static/js/2.101a9552.chunk.js.LICENSE.txt"
+    "static/js/2.a74fb31c.chunk.js.LICENSE.txt": "/vyshyvanka-js/static/js/2.a74fb31c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5f74b15b.js",
-    "static/js/2.101a9552.chunk.js",
+    "static/js/2.a74fb31c.chunk.js",
     "static/css/main.b84552be.chunk.css",
-    "static/js/main.ee865045.chunk.js"
+    "static/js/main.9d08a343.chunk.js"
   ]
 }
