@@ -42,6 +42,7 @@ const defaultMonoSettings = {
 };
 
 // EFFECTS
+
 const pitchShift = new Tone.PitchShift();
 const delay = new Tone.FeedbackDelay({
   maxDelay: 2,
@@ -52,48 +53,34 @@ const reverb = new Tone.Freeverb();
 const volume = new Tone.Volume(-6).toDestination();
 
 // SYNTHS
-const neQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
-);
-const seQuadrantSynth = new Tone.FMSynth({
-  ...defaultFMSettings,
-  volume: 0
-}).chain(pitchShift, delay, reverb, volume);
-const swQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
-);
-const nwQuadrantSynth = new Tone.FMSynth(defaultFMSettings).chain(
+const synthNode = new Tone.Gain(0, "decibels").chain(
   pitchShift,
   delay,
   reverb,
   volume
 );
 
+const neQuadrantSynth = new Tone.FMSynth(defaultFMSettings).connect(synthNode);
+const seQuadrantSynth = new Tone.FMSynth({
+  ...defaultFMSettings,
+  volume: 0
+}).connect(synthNode);
+const swQuadrantSynth = new Tone.FMSynth(defaultFMSettings).connect(synthNode);
+const nwQuadrantSynth = new Tone.FMSynth(defaultFMSettings).connect(synthNode);
+
 const ascLineSynth = new Tone.MonoSynth({
   ...defaultMonoSettings,
   volume: -6
-}).chain(pitchShift, delay, reverb, volume);
+}).connect(synthNode);
 const descLineSynth = new Tone.MonoSynth({
   ...defaultMonoSettings,
   volume: -6
-}).chain(pitchShift, delay, reverb, volume);
-const verticalLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
+}).connect(synthNode);
+const verticalLineSynth = new Tone.MonoSynth(defaultMonoSettings).connect(
+  synthNode
 );
-const horizontalLineSynth = new Tone.MonoSynth(defaultMonoSettings).chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
+const horizontalLineSynth = new Tone.MonoSynth(defaultMonoSettings).connect(
+  synthNode
 );
 
 const outerDiamondGain = new Tone.Gain(-12, "decibels").connect(
