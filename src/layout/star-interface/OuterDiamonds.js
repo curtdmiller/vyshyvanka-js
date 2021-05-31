@@ -13,7 +13,7 @@ export default function OuterDiamonds() {
     (time, note) => {
       outerDiamondSynth.triggerAttackRelease(note, "16t", time);
     },
-    ["D4", [null, "C3"], ["F4", "G4", "A4", "458"]],
+    ["D4", ["F4", "G4", "A4", "458"]],
     "4n"
   );
   const delaySequence = new Tone.Sequence(

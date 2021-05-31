@@ -29,7 +29,7 @@ export default function CenterStar() {
     callback: function (time, note) {
       verticalLineSynth.triggerAttackRelease(note, 0.8);
     },
-    values: ["D4", "F4", "G4", "458"],
+    values: ["D4", "F4", "A4", "458"],
     pattern: "random",
     playbackRate: 0.25
   });
@@ -37,7 +37,7 @@ export default function CenterStar() {
     callback: function (time, note) {
       horizontalLineSynth.triggerAttackRelease(note, 0.8);
     },
-    values: ["D4", "F4", "G4", "458"],
+    values: ["D4", "F4", "A4", "458"],
     pattern: "random",
     playbackRate: 0.25
   });
