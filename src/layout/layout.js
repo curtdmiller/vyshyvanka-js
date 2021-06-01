@@ -23,13 +23,16 @@ const menu = [
   }
 ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   menu: {
     margin: 0,
     padding: 0,
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
-    gap: "20px 20px"
+    gap: "20px 20px",
+    [theme.breakpoints.down("sm")]: {
+      gridTemplateColumns: "100%"
+    }
   },
   menuItem: {
     position: "relative",
@@ -42,19 +45,25 @@ const useStyles = makeStyles({
     backgroundPosition: "center center",
     backgroundSize: "cover",
     "&:first-child": {
-      backgroundImage: `url(${interfaceImage})`
+      backgroundImage: `linear-gradient(
+      rgba(255,255,255, 0.3), 
+      rgba(255,255,255, 0.3)
+    ), url(${interfaceImage})`
     },
     "&:nth-child(2)": {
-      backgroundImage: `url(${freeDrawImage})`
+      backgroundImage: `linear-gradient(
+      rgba(255,255,255, 0.3), 
+      rgba(255,255,255, 0.3)
+    ), url(${freeDrawImage})`
     },
     "&:nth-child(3)": {
-      backgroundImage: `url(${testImage})`
+      backgroundImage: `linear-gradient(
+      rgba(255,255,255, 0.3), 
+      rgba(255,255,255, 0.3)
+    ), url(${testImage})`
     }
   },
   menuLink: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     position: "absolute",
     top: 0,
     left: 0,
@@ -62,6 +71,9 @@ const useStyles = makeStyles({
     right: 0
   },
   menuItemText: {
+    position: "absolute",
+    top: 10,
+    left: 10,
     backgroundColor: "black",
     color: "white",
     fontSize: "2em",
@@ -75,7 +87,7 @@ const useStyles = makeStyles({
   backLink: {
     display: "inline-block"
   }
-});
+}));
 
 export default function Layout() {
   const classes = useStyles();
