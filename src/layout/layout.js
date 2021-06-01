@@ -24,6 +24,21 @@ const menu = [
 ];
 
 const useStyles = makeStyles((theme) => ({
+  title: {
+    marginBottom: "2em",
+    fontSize: "2em",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.5em",
+      textAlign: "center"
+    }
+  },
+  slash: {
+    fontWeight: 100,
+    fontSize: "2em",
+    position: "relative",
+    top: 4,
+    margin: "0 .1em 0 .2em"
+  },
   menu: {
     margin: 0,
     padding: 0,
@@ -95,7 +110,9 @@ export default function Layout() {
   return (
     <main>
       <Route path="/" exact>
-        <h1>Vyshyvanka.js/Вишиванка.js</h1>
+        <h1 className={classes.title}>
+          Вишиванка.js<span className={classes.slash}>/</span>Vyshyvanka.js
+        </h1>
         <nav>
           <ul className={classes.menu}>
             {menu.map((item) => (
