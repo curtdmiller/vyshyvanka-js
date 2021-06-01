@@ -5,29 +5,24 @@ import Line from "../../components/shapes/Line";
 import { colors } from "../../theme/colors";
 
 export default function CenterStar() {
-  const {
-    ascLineSynth,
-    descLineSynth,
-    verticalLineSynth,
-    horizontalLineSynth
-  } = React.useContext(AppContext);
+  const { xPolySynth, plusPolySynth } = React.useContext(AppContext);
   const patternUp = new Tone.Pattern(
     function (time, note) {
-      ascLineSynth.triggerAttackRelease(note, 0.1, time);
+      xPolySynth.triggerAttackRelease(note, 0.1, time);
     },
     ["D4", "F4", "G4", "A4", "458", "C4"],
     "up"
   );
   var patternDown = new Tone.Pattern(
     function (time, note) {
-      descLineSynth.triggerAttackRelease(note, 0.1, time);
+      xPolySynth.triggerAttackRelease(note, 0.1, time);
     },
     ["C4", "D4", "E4", "G4", "A4", "458"],
     "down"
   );
   var verticalPattern = new Tone.Pattern({
     callback: function (time, note) {
-      verticalLineSynth.triggerAttackRelease(note, 0.8);
+      plusPolySynth.triggerAttackRelease(note, 0.8);
     },
     values: ["D4", "F4", "A4", "458"],
     pattern: "random",
@@ -35,7 +30,7 @@ export default function CenterStar() {
   });
   var horizontalPattern = new Tone.Pattern({
     callback: function (time, note) {
-      horizontalLineSynth.triggerAttackRelease(note, 0.8);
+      plusPolySynth.triggerAttackRelease(note, 0.8);
     },
     values: ["D4", "F4", "A4", "458"],
     pattern: "random",

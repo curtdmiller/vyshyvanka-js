@@ -41,8 +41,7 @@ function TriangleGroup({ patternContent, patternDirection, triangles, synth }) {
 }
 
 export default function InnerTriangles() {
-  const { nwQuadrantSynth, neQuadrantSynth, swQuadrantSynth, seQuadrantSynth } =
-    React.useContext(AppContext);
+  const { fmPolySynth } = React.useContext(AppContext);
   return (
     <g>
       <TriangleGroup
@@ -52,7 +51,7 @@ export default function InnerTriangles() {
           { orientation: "north", size: 9, x: 8, y: 13 },
           { orientation: "west", size: 9, x: 13, y: 8 }
         ]}
-        synth={nwQuadrantSynth}
+        synth={fmPolySynth}
       />
       <TriangleGroup
         patternContent={["D4", "E4", "Eb4", "E4", "D4"]}
@@ -61,7 +60,7 @@ export default function InnerTriangles() {
           { orientation: "east", size: 9, x: 19, y: 8 },
           { orientation: "north", size: 9, x: 20, y: 13 }
         ]}
-        synth={neQuadrantSynth}
+        synth={fmPolySynth}
       />
       <TriangleGroup
         patternContent={["D4", "Eb4", "D4", "Eb4", "D4", "Eb4", "D4"]}
@@ -70,7 +69,7 @@ export default function InnerTriangles() {
           { orientation: "south", size: 9, x: 8, y: 19 },
           { orientation: "west", size: 9, x: 13, y: 20 }
         ]}
-        synth={swQuadrantSynth}
+        synth={fmPolySynth}
       />
       <TriangleGroup
         patternContent={["D2"]}
@@ -79,7 +78,7 @@ export default function InnerTriangles() {
           { orientation: "east", size: 9, x: 19, y: 20 },
           { orientation: "south", size: 9, x: 20, y: 19 }
         ]}
-        synth={seQuadrantSynth}
+        synth={fmPolySynth}
       />
     </g>
   );

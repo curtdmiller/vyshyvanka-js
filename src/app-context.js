@@ -1,48 +1,10 @@
 import { createContext } from "react";
 import * as Tone from "tone";
 import { colors } from "./theme/colors";
-
+import { defaultFMSettings, defaultMonoSettings } from "./tone/synth-defaults";
 // GLOBAL TONEJS RESOURCES
-// DEFAULTS
-const defaultFMSettings = {
-  oscillator: {
-    type: "sine"
-  },
-  modulationIndex: 20,
-  modulation: {
-    type: "sawtooth"
-  },
-  envelope: {
-    attack: 0.01,
-    decay: 0.2,
-    sustain: 0.2,
-    release: 2,
-    attackCurve: "sine"
-  },
-  volume: -9
-};
-const defaultMonoSettings = {
-  oscillator: { type: "sawtooth" },
-  envelope: { attack: 0.001, decay: 0.1, release: 0.5, sustain: 0.5 },
-  filter: {
-    Q: 1,
-    rolloff: -12,
-    type: "lowpass"
-  },
-  filterEnvelope: {
-    attack: 0.4,
-    baseFrequency: 150,
-    decay: 0.2,
-    exponent: 2,
-    octaves: 3,
-    release: 2,
-    sustain: 0.5
-  },
-  volume: -12
-};
 
 // EFFECTS
-
 const pitchShift = new Tone.PitchShift();
 const delay = new Tone.FeedbackDelay({
   maxDelay: 2,
@@ -60,32 +22,25 @@ const synthNode = new Tone.Gain(0, "decibels").chain(
   volume
 );
 
-const neQuadrantSynth = new Tone.FMSynth(defaultFMSettings).connect(synthNode);
-const seQuadrantSynth = new Tone.FMSynth({
-  ...defaultFMSettings,
-  volume: 0
-}).connect(synthNode);
-const swQuadrantSynth = new Tone.FMSynth(defaultFMSettings).connect(synthNode);
-const nwQuadrantSynth = new Tone.FMSynth(defaultFMSettings).connect(synthNode);
+const fmPolySynth = new Tone.PolySynth(Tone.FMSynth, defaultFMSettings).connect(
+  synthNode
+);
 
-const ascLineSynth = new Tone.MonoSynth({
+const xPolySynth = new Tone.PolySynth(Tone.MonoSynth, {
   ...defaultMonoSettings,
   volume: -6
 }).connect(synthNode);
-const descLineSynth = new Tone.MonoSynth({
+
+const plusPolySynth = new Tone.PolySynth(Tone.MonoSynth, {
   ...defaultMonoSettings,
-  volume: -6
+  volume: -15
 }).connect(synthNode);
-const verticalLineSynth = new Tone.MonoSynth(defaultMonoSettings).connect(
-  synthNode
-);
-const horizontalLineSynth = new Tone.MonoSynth(defaultMonoSettings).connect(
-  synthNode
-);
 
 const outerDiamondGain = new Tone.Gain(-12, "decibels").connect(
   Tone.Destination
 );
+
+// Outer Diamonds
 
 const outerDiamondDelay = new Tone.FeedbackDelay({
   maxDelay: 2,
@@ -110,14 +65,9 @@ export const defaultAppContext = {
   delay,
   reverb,
   volume,
-  neQuadrantSynth,
-  seQuadrantSynth,
-  swQuadrantSynth,
-  nwQuadrantSynth,
-  ascLineSynth,
-  descLineSynth,
-  verticalLineSynth,
-  horizontalLineSynth,
+  fmPolySynth,
+  xPolySynth,
+  plusPolySynth,
   outerDiamondSynth,
   outerDiamondDelay
 };
