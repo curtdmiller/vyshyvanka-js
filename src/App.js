@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <AppContext.Provider
           value={{
             ...defaultAppContext,
