@@ -1,7 +1,7 @@
 import React from "react";
 import * as Tone from "tone";
-import Fabric from "../components/Fabric";
-import { RightTriangle } from "../components/shapes/Triangles";
+import Fabric from "../../components/Fabric";
+import { RightTriangle } from "../../components/shapes/Triangles";
 
 const pitchShift = new Tone.PitchShift(5).toDestination();
 const delay = new Tone.FeedbackDelay({

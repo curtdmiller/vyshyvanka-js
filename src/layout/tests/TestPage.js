@@ -17,6 +17,7 @@ import EmptyDiamond from "./empty-diamond";
 import NoiseSquare from "./noise-square";
 import IsoscelesTriangles from "./iso-triangles";
 import XStitchSet from "./x-stitch-set";
+import TriangleInD from "./triangle-in-d";
 
 const menu = [
   {
@@ -31,7 +32,7 @@ const menu = [
   },
   { url: "/tests/plus-cross", title: "Plus Cross", component: <PlusCross /> },
   { url: "/tests/plus-star", title: "Plus Star", component: <PlusStars /> },
-  { url: "/tests/tone-test", title: "Tone Test", component: <ToneTest /> },
+  // { url: "/tests/tone-test", title: "Tone Test", component: <ToneTest /> },
   {
     url: "/tests/square-test",
     title: "Square Test",
@@ -63,6 +64,11 @@ const menu = [
     url: "/tests/x-stitch-set",
     title: "X Stitch Set",
     component: <XStitchSet />
+  },
+  {
+    url: "/triangle-in-d",
+    title: "Triangle In D",
+    component: <TriangleInD />
   }
 ];
 
@@ -79,6 +85,7 @@ export default function TestPage() {
   return (
     <main>
       <Route path="/tests" exact>
+        <Link to="/">← back to home</Link>
         <h1>Tests</h1>
         <nav>
           <ul>

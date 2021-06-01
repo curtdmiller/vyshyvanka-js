@@ -3,21 +3,18 @@ import { Route, Link } from "react-router-dom";
 import ColorPicker from "../components/ColorPicker";
 import { makeStyles } from "@material-ui/core";
 import StarDiamond from "./star-diamond";
-import TriangleInD from "./triangle-in-d";
 import AudioStartButton from "../components/AudioStart";
 import TestPage from "./tests/TestPage";
 import FreeDraw from "./FreeDraw";
+import interfaceImage from "../assets/StarInterface.png";
+import freeDrawImage from "../assets/FreeDraw.png";
+import testImage from "../assets/NestedDiamonds.png";
 
 const menu = [
   {
     url: "/star-diamond",
-    title: "Star Diamond Interface",
+    title: "Star Interface",
     component: <StarDiamond />
-  },
-  {
-    url: "/triangle-in-d",
-    title: "Triangle In D",
-    component: <TriangleInD />
   },
   {
     url: "/free-draw",
@@ -27,6 +24,50 @@ const menu = [
 ];
 
 const useStyles = makeStyles({
+  menu: {
+    margin: 0,
+    padding: 0,
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "20px 20px"
+  },
+  menuItem: {
+    position: "relative",
+    display: "block",
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+    height: 0,
+    paddingTop: "100%",
+    backgroundPosition: "center center",
+    backgroundSize: "cover",
+    "&:first-child": {
+      backgroundImage: `url(${interfaceImage})`
+    },
+    "&:nth-child(2)": {
+      backgroundImage: `url(${freeDrawImage})`
+    },
+    "&:nth-child(3)": {
+      backgroundImage: `url(${testImage})`
+    }
+  },
+  menuLink: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
+  },
+  menuItemText: {
+    backgroundColor: "black",
+    color: "white",
+    fontSize: "2em",
+    lineHeight: 1,
+    padding: 10
+  },
   embroidery: {
     maxWidth: 800,
     margin: "0 auto"
@@ -44,15 +85,19 @@ export default function Layout() {
       <Route path="/" exact>
         <h1>Vyshyvanka.js/Вишиванка.js</h1>
         <nav>
-          <ul>
-            <li>
-              <Link to={"/tests"}>Tests</Link>
-            </li>
+          <ul className={classes.menu}>
             {menu.map((item) => (
-              <li key={item.url}>
-                <Link to={item.url}>{item.title}</Link>
+              <li key={item.url} className={classes.menuItem}>
+                <Link to={item.url} className={classes.menuLink}>
+                  <span className={classes.menuItemText}>{item.title}</span>
+                </Link>
               </li>
             ))}
+            <li className={classes.menuItem}>
+              <Link to={"/tests"} className={classes.menuLink}>
+                <span className={classes.menuItemText}>Tests</span>
+              </Link>
+            </li>
           </ul>
         </nav>
       </Route>
