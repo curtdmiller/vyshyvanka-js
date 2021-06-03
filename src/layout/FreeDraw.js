@@ -7,11 +7,13 @@ import G from "../components/G";
 const useStyles = makeStyles({
   controls: {
     display: "flex",
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 20,
+    "& button": {
+      marginLeft: 20
+    }
   },
-  form: {
-    marginRight: 20
-  }
+  form: {}
 });
 
 export default function FreeDraw() {
@@ -19,6 +21,7 @@ export default function FreeDraw() {
   const [size, setSize] = React.useState(20);
   const [text, setText] = React.useState("20");
   const [stitches, setStitches] = React.useState([]);
+  const svgRef = React.useRef();
 
   React.useEffect(() => {
     const temp = [];
@@ -42,7 +45,18 @@ export default function FreeDraw() {
   function resetHandler(e) {
     setStitches(stitches.map((stitch) => ({ ...stitch, fill: "transparent" })));
   }
-
+  function exportHandler(e) {
+    if (svgRef.current) {
+      const data = new XMLSerializer().serializeToString(svgRef.current);
+      const svg = new Blob([data], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svg);
+      const a = document.createElement("a");
+      a.setAttribute("href", url);
+      a.setAttribute("target", "download");
+      a.setAttribute("download", "vyshyvanka-freedraw.svg");
+      a.click();
+    }
+  }
   return (
     <div>
       <div className={classes.controls}>
@@ -65,9 +79,12 @@ export default function FreeDraw() {
         <Button variant="outlined" color="secondary" onClick={resetHandler}>
           Reset
         </Button>
+        <Button variant="outlined" color="primary" onClick={exportHandler}>
+          Export SVG
+        </Button>
       </div>
 
-      <Fabric gridSize={[size, size]} gridColor="#eaeaea" showGrid>
+      <Fabric ref={svgRef} gridSize={[size, size]} gridColor="#eaeaea" showGrid>
         {stitches && <ShapeBaseFreeDraw stitches={stitches} x={0} y={0} />}
       </Fabric>
     </div>
