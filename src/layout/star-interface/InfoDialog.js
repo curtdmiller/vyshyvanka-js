@@ -41,10 +41,12 @@ export default function InfoDialog({ open, setOpen }) {
       </DialogTitle>
       <DialogContent className={classes.content}>
         <p>
-          The shapes that make up this embroidery pattern can also be used as an
-          interface to control sounds generated in the browser. To interact with
-          the interface, select shapes within the image by clicking on a square
-          within the shape. See below for details.
+          The shapes that make up this embroidery pattern can be used as an
+          interface to control sounds generated in the browser and drawn on to
+          elaborate on the pattern. To change the colors of cells, shift-click
+          on a cell and it will change to the color selected in the color
+          picker. To interact with the interface, select shapes within the image
+          by clicking on a square within the shape. See below for details.
         </p>
         <div className={classes.mediaText}>
           <img src={star} />
