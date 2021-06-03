@@ -7,7 +7,9 @@ import InnerTriangles from "./star-interface/InnerTriangles";
 import OuterDiamonds from "./star-interface/OuterDiamonds";
 import CornerStars from "./star-interface/CornerStars";
 import CenterStar from "./star-interface/CenterStar";
-import { makeStyles } from "@material-ui/core";
+import { IconButton, makeStyles } from "@material-ui/core";
+import { Info } from "@material-ui/icons";
+import InfoDialog from "./star-interface/InfoDialog";
 
 const useStyles = makeStyles({
   labelWrapper: {
@@ -16,13 +18,30 @@ const useStyles = makeStyles({
   },
   label: {
     margin: 0
+  },
+  infoButton: {
+    position: "fixed",
+    top: 5,
+    right: 5,
+    color: "#333"
   }
 });
 
 export default function StarDiamond() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
   return (
     <>
+      <IconButton
+        size="large"
+        fontSize="large"
+        onClick={() => setOpen(true)}
+        className={classes.infoButton}
+      >
+        <Info />
+      </IconButton>
+      <InfoDialog open={open} setOpen={setOpen} />
       <div className={classes.labelWrapper}>
         <p className={classes.label}>Tempo -</p>
         <p className={classes.label}>Tempo +</p>

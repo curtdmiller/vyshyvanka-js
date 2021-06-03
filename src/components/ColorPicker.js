@@ -9,12 +9,11 @@ import { colors } from "../theme/colors";
 const useStyles = makeStyles({
   root: {
     position: "fixed",
-    bottom: 0,
-    right: 0,
+    bottom: 5,
+    right: 5,
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    padding: 5,
     "& .MuiIconButton-root": {
       color: "#333"
     }
@@ -64,7 +63,7 @@ export default function ColorPicker() {
         />
       </div>
       <IconButton
-        size="small"
+        size="large"
         fontSize="large"
         onClick={() => setColorPickerOpen(!colorPickerOpen)}
       >
