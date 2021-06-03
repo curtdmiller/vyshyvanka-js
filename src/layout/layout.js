@@ -14,12 +14,14 @@ const menu = [
   {
     url: "/star-diamond",
     title: "Star Interface",
-    component: <StarDiamond />
+    component: <StarDiamond />,
+    hasAudio: true
   },
   {
     url: "/free-draw",
     title: "Free Draw",
-    component: <FreeDraw />
+    component: <FreeDraw />,
+    hasAudio: false
   }
 ];
 
@@ -139,7 +141,7 @@ export default function Layout() {
             Back
           </Link>
           <ColorPicker />
-          <AudioStartButton />
+          {item.hasAudio && <AudioStartButton />}
           <div className={classes.embroidery}>{item.component}</div>
         </Route>
       ))}
