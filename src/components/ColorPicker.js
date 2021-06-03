@@ -63,7 +63,7 @@ export default function ColorPicker() {
         />
       </div>
       <IconButton
-        size="large"
+        size="medium"
         fontSize="large"
         onClick={() => setColorPickerOpen(!colorPickerOpen)}
       >

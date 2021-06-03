@@ -34,7 +34,7 @@ export default function StarDiamond() {
   return (
     <>
       <IconButton
-        size="large"
+        size="medium"
         fontSize="large"
         onClick={() => setOpen(true)}
         className={classes.infoButton}
