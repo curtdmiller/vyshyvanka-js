@@ -12,16 +12,9 @@ export default function Diamond({
   selected,
   setSelected
 }) {
-  const [stitches, setStitches] = React.useState();
-  const [realDiameter, setRealDiameter] = React.useState(
-    diameter % 2 === 0 ? diameter - 1 : diameter
-  );
+  const realDiameter = diameter % 2 === 0 ? diameter - 1 : diameter;
 
-  React.useEffect(() => {
-    setRealDiameter(diameter % 2 === 0 ? diameter - 1 : diameter);
-  }, [diameter]);
-
-  React.useEffect(() => {
+  const stitches = React.useMemo(() => {
     const mid = (realDiameter - 1) / 2;
     const s = [];
     for (let x = 0; x < realDiameter; x++) {
@@ -50,7 +43,7 @@ export default function Diamond({
         }
       }
     }
-    setStitches(s);
+    return s;
   }, [diameter, stroke, fill, filled]);
 
   return (

@@ -10,11 +10,8 @@ export default function Plus({
   selected,
   setSelected
 }) {
-  const [stitches, setStitches] = React.useState([]);
-
-  React.useEffect(() => {
+  const stitches = React.useMemo(() => {
     const tempStitches = [];
-
     for (let x = 0; x < diameter; x++) {
       for (let y = 0; y < diameter; y++) {
         if (
@@ -27,7 +24,7 @@ export default function Plus({
         }
       }
     }
-    setStitches(tempStitches);
+    return tempStitches;
   }, [diameter, lineWidth]);
 
   return (

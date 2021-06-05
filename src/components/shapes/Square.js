@@ -10,9 +10,7 @@ export default function Square({
   selected,
   setSelected
 }) {
-  const [stitches, setStitches] = React.useState([]);
-
-  React.useEffect(() => {
+  const stitches = React.useMemo(() => {
     const tmp = [];
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < width; y++) {
@@ -23,7 +21,7 @@ export default function Square({
         }
       }
     }
-    setStitches(tmp);
+    return tmp;
   }, [width, stroke, fill]);
 
   return (

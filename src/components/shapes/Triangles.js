@@ -46,12 +46,10 @@ export function RightTriangle({
   selected,
   setSelected
 }) {
-  const [stitches, setStitches] = React.useState(
-    generateRightStitches(orientation, sideLength, fill)
+  const stitches = React.useMemo(
+    () => generateRightStitches(orientation, sideLength, fill),
+    [orientation, sideLength, fill]
   );
-  React.useEffect(() => {
-    setStitches(generateRightStitches(orientation, sideLength, fill));
-  }, [orientation, sideLength, fill]);
 
   return (
     <ShapeBase
@@ -111,18 +109,11 @@ export function IsoTriangle({
   selected,
   setSelected
 }) {
-  const [baseWidth, setBaseWidth] = React.useState(
-    size % 2 === 0 ? size - 1 : size
+  const baseWidth = size % 2 === 0 ? size - 1 : size;
+  const stitches = React.useMemo(
+    () => generateIsoStitches(orientation, baseWidth, fill),
+    [orientation, baseWidth, fill]
   );
-  const [stitches, setStitches] = React.useState(
-    generateIsoStitches(orientation, baseWidth, fill)
-  );
-  React.useEffect(() => {
-    setBaseWidth(size % 2 === 0 ? size - 1 : size);
-  }, [size]);
-  React.useEffect(() => {
-    setStitches(generateIsoStitches(orientation, baseWidth, fill));
-  }, [orientation, baseWidth, fill]);
 
   return (
     <ShapeBase

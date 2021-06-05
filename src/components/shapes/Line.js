@@ -10,9 +10,7 @@ export default function Line({
   selected,
   setSelected
 }) {
-  const [stitches, setStitches] = React.useState();
-
-  React.useEffect(() => {
+  const stitches = React.useMemo(() => {
     const tempStitches = [];
     if (angle === "vertical") {
       for (let i = 0; i < length; i++) {
@@ -31,10 +29,10 @@ export default function Line({
         tempStitches.push({ fill: color, x: i, y: length - i - 1 });
       }
     }
-    setStitches(tempStitches);
+    return tempStitches;
   }, [length, angle, color]);
 
-  return stitches ? (
+  return (
     <ShapeBase
       stitches={stitches}
       x={x}
@@ -42,7 +40,5 @@ export default function Line({
       selected={selected}
       setSelected={setSelected}
     />
-  ) : (
-    <g></g>
   );
 }
