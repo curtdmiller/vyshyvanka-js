@@ -1,104 +1,219 @@
 import React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../../app-context";
+import { AppContext } from "../../App";
 import Line from "../../components/shapes/Line";
 import { colors } from "../../theme/colors";
+import { defaultMonoSettings } from "../../tone/synth-defaults";
 
 export default function CenterStar() {
-  const { xPolySynth, plusPolySynth } = React.useContext(AppContext);
-  const patternUp = new Tone.Pattern(
-    function (time, note) {
-      xPolySynth.triggerAttackRelease(note, 0.1, time);
-    },
-    ["D4", "F4", "G4", "A4", "458", "C4"],
-    "up"
-  );
-  var patternDown = new Tone.Pattern(
-    function (time, note) {
-      xPolySynth.triggerAttackRelease(note, 0.1, time);
-    },
-    ["C4", "D4", "E4", "G4", "A4", "458"],
-    "down"
-  );
-  var verticalPattern = new Tone.Pattern({
-    callback: function (time, note) {
-      plusPolySynth.triggerAttackRelease(note, 0.8);
-    },
-    values: ["D4", "F4", "A4", "458"],
-    pattern: "random",
-    playbackRate: 0.25
-  });
-  var horizontalPattern = new Tone.Pattern({
-    callback: function (time, note) {
-      plusPolySynth.triggerAttackRelease(note, 0.8);
-    },
-    values: ["D4", "F4", "A4", "458"],
-    pattern: "random",
-    playbackRate: 0.25
-  });
-
-  const [horizontalSelected, setHorizontalSelected] = React.useState(false);
-  const [verticalSelected, setVerticalSelected] = React.useState(false);
-  const [downSelected, setDownSelected] = React.useState(false);
-  const [upSelected, setUpSelected] = React.useState(false);
-
-  React.useEffect(() => {
-    downSelected ? patternDown.start(0) : patternDown.stop(0);
-    return () => patternDown.stop(0);
-  }, [downSelected]);
-
-  React.useEffect(() => {
-    upSelected ? patternUp.start(0) : patternUp.stop(0);
-    return () => patternUp.stop(0);
-  }, [upSelected]);
-
-  React.useEffect(() => {
-    verticalSelected ? verticalPattern.start(0) : verticalPattern.stop(0);
-    return () => verticalPattern.stop(0);
-  }, [verticalSelected]);
-
-  React.useEffect(() => {
-    horizontalSelected ? horizontalPattern.start(0) : horizontalPattern.stop(0);
-    return () => horizontalPattern.stop(0);
-  }, [horizontalSelected]);
   return (
     <g>
-      <Line
-        length={17}
-        angle="horizontal"
-        color={colors.orange}
-        x={10}
-        y={18}
-        selected={horizontalSelected}
-        setSelected={setHorizontalSelected}
-      />
-      <Line
-        length={17}
-        angle="vertical"
-        color={colors.orange}
-        x={18}
-        y={10}
-        selected={verticalSelected}
-        setSelected={setVerticalSelected}
-      />
-      <Line
-        length={11}
-        angle="diagonal-down"
-        color={colors.orange}
-        x={13}
-        y={13}
-        selected={downSelected}
-        setSelected={setDownSelected}
-      />
-      <Line
-        length={11}
-        angle="diagonal-up"
-        color={colors.orange}
-        x={13}
-        y={13}
-        selected={upSelected}
-        setSelected={setUpSelected}
-      />
+      <Horizontal />
+      <Vertical />
+      <Descending />
+      <Ascending />
     </g>
+  );
+}
+
+function Vertical() {
+  const [selected, setSelected] = React.useState(false);
+  const { synthNode } = React.useContext(AppContext);
+
+  const synth = React.useMemo(
+    () =>
+      new Tone.MonoSynth({
+        ...defaultMonoSettings,
+        volume: -15
+      }).connect(synthNode),
+    []
+  );
+
+  const pattern = React.useMemo(
+    () =>
+      new Tone.Pattern({
+        callback: function (time, note) {
+          synth.triggerAttackRelease(note, 0.8, time);
+        },
+        values: ["D4", "F4", "A4", "458"],
+        pattern: "random",
+        playbackRate: 0.25
+      }),
+    []
+  );
+
+  React.useEffect(() => {
+    return () => {
+      synth.dispose();
+      pattern.dispose();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    selected ? pattern.start(0) : pattern.stop(0);
+    return () => pattern.stop(0);
+  }, [selected]);
+
+  return (
+    <Line
+      length={17}
+      angle="vertical"
+      color={colors.orange}
+      x={18}
+      y={10}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  );
+}
+
+function Horizontal() {
+  const [selected, setSelected] = React.useState(false);
+  const { synthNode } = React.useContext(AppContext);
+
+  const synth = React.useMemo(
+    () =>
+      new Tone.MonoSynth({
+        ...defaultMonoSettings,
+        volume: -15
+      }).connect(synthNode),
+    []
+  );
+
+  const pattern = React.useMemo(
+    () =>
+      new Tone.Pattern({
+        callback: function (time, note) {
+          synth.triggerAttackRelease(note, 0.8, time);
+        },
+        values: ["D4", "F4", "A4", "458"],
+        pattern: "random",
+        playbackRate: 0.25
+      }),
+    []
+  );
+
+  React.useEffect(() => {
+    return () => {
+      synth.dispose();
+      pattern.dispose();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    selected ? pattern.start(0) : pattern.stop(0);
+    return () => pattern.stop(0);
+  }, [selected]);
+
+  return (
+    <Line
+      length={17}
+      angle="horizontal"
+      color={colors.orange}
+      x={10}
+      y={18}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  );
+}
+
+function Ascending() {
+  const [selected, setSelected] = React.useState(false);
+  const { synthNode } = React.useContext(AppContext);
+
+  const synth = React.useMemo(
+    () =>
+      new Tone.MonoSynth({
+        ...defaultMonoSettings,
+        volume: -6
+      }).connect(synthNode),
+    []
+  );
+
+  const pattern = React.useMemo(
+    () =>
+      new Tone.Pattern(
+        function (time, note) {
+          synth.triggerAttackRelease(note, 0.1, time);
+        },
+        ["D4", "F4", "G4", "A4", "458", "C4"],
+        "up"
+      ),
+    []
+  );
+
+  React.useEffect(() => {
+    return () => {
+      synth.dispose();
+      pattern.dispose();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    selected ? pattern.start(0) : pattern.stop(0);
+    return () => pattern.stop(0);
+  }, [selected]);
+
+  return (
+    <Line
+      length={11}
+      angle="diagonal-up"
+      color={colors.orange}
+      x={13}
+      y={13}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  );
+}
+
+function Descending() {
+  const [selected, setSelected] = React.useState(false);
+  const { synthNode } = React.useContext(AppContext);
+
+  const synth = React.useMemo(
+    () =>
+      new Tone.MonoSynth({
+        ...defaultMonoSettings,
+        volume: -6
+      }).connect(synthNode),
+    []
+  );
+
+  const pattern = React.useMemo(
+    () =>
+      new Tone.Pattern(
+        function (time, note) {
+          synth.triggerAttackRelease(note, 0.1, time);
+        },
+        ["C4", "D4", "E4", "G4", "A4", "458"],
+        "down"
+      ),
+    []
+  );
+
+  React.useEffect(() => {
+    return () => {
+      synth.dispose();
+      pattern.dispose();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    selected ? pattern.start(0) : pattern.stop(0);
+    return () => pattern.stop(0);
+  }, [selected]);
+
+  return (
+    <Line
+      length={11}
+      angle="diagonal-down"
+      color={colors.orange}
+      x={13}
+      y={13}
+      selected={selected}
+      setSelected={setSelected}
+    />
   );
 }

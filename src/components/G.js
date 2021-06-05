@@ -1,5 +1,5 @@
 import React from "react";
-import { AppContext } from "../app-context";
+import { AppContext } from "../App";
 /**
  * <g> with cellSize based translate
  * @param {Object} props

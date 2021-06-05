@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppContext } from "../../app-context";
+import { AppContext } from "../../App";
 import G from "../G";
 
 export default function ShapeBase({ stitches, x, y, selected, setSelected }) {

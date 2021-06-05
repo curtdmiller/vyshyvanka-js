@@ -1,6 +1,6 @@
 import React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../app-context";
+import { AppContext } from "../App";
 import { IconButton, makeStyles } from "@material-ui/core";
 import { PlayCircleOutline } from "@material-ui/icons";
 

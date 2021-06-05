@@ -1,6 +1,6 @@
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import * as React from "react";
-import { AppContext } from "../app-context";
+import { AppContext } from "../App";
 import Fabric from "../components/Fabric";
 import G from "../components/G";
 

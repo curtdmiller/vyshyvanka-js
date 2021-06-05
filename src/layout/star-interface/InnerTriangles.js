@@ -1,29 +1,47 @@
 import * as React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../../app-context";
+import { AppContext } from "../../App";
 import { IsoTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
+import { defaultFMSettings } from "../../tone/synth-defaults";
 
-function TriangleGroup({ patternContent, patternDirection, triangles, synth }) {
+function TriangleGroup({
+  patternContent,
+  patternDirection,
+  triangles,
+  synthVol
+}) {
+  const { synthNode } = React.useContext(AppContext);
   const [selected, setSelected] = React.useState(false);
-
-  const pattern = React.useRef(
-    new Tone.Pattern(
+  const synth = React.useMemo(() => {
+    return new Tone.FMSynth({
+      ...defaultFMSettings,
+      volume: synthVol ? synthVol : -6
+    }).connect(synthNode);
+  }, []);
+  const pattern = React.useMemo(() => {
+    return new Tone.Pattern(
       function (time, note) {
         synth.triggerAttackRelease(note, "16n", time);
       },
       patternContent,
       patternDirection
-    )
-  );
+    );
+  }, []);
+
+  React.useEffect(() => {
+    return () => {
+      pattern.dispose();
+      synth.dispose();
+    };
+  }, []);
 
   React.useEffect(() => {
     if (selected) {
-      pattern.current.start(0);
+      pattern.start(0);
     } else {
-      pattern.current.stop(0);
+      pattern.stop(0);
     }
-    return () => pattern.current.stop(0);
   }, [selected]);
 
   return triangles.map((triangle) => (
@@ -41,7 +59,6 @@ function TriangleGroup({ patternContent, patternDirection, triangles, synth }) {
 }
 
 export default function InnerTriangles() {
-  const { fmPolySynth } = React.useContext(AppContext);
   return (
     <g>
       <TriangleGroup
@@ -51,7 +68,6 @@ export default function InnerTriangles() {
           { orientation: "north", size: 9, x: 8, y: 13 },
           { orientation: "west", size: 9, x: 13, y: 8 }
         ]}
-        synth={fmPolySynth}
       />
       <TriangleGroup
         patternContent={["D4", "E4", "Eb4", "E4", "D4"]}
@@ -60,7 +76,6 @@ export default function InnerTriangles() {
           { orientation: "east", size: 9, x: 19, y: 8 },
           { orientation: "north", size: 9, x: 20, y: 13 }
         ]}
-        synth={fmPolySynth}
       />
       <TriangleGroup
         patternContent={["D4", "Eb4", "D4", "Eb4", "D4", "Eb4", "D4"]}
@@ -69,7 +84,6 @@ export default function InnerTriangles() {
           { orientation: "south", size: 9, x: 8, y: 19 },
           { orientation: "west", size: 9, x: 13, y: 20 }
         ]}
-        synth={fmPolySynth}
       />
       <TriangleGroup
         patternContent={["D2"]}
@@ -78,7 +92,7 @@ export default function InnerTriangles() {
           { orientation: "east", size: 9, x: 19, y: 20 },
           { orientation: "south", size: 9, x: 20, y: 19 }
         ]}
-        synth={fmPolySynth}
+        synthVol={0}
       />
     </g>
   );

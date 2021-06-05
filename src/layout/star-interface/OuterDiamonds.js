@@ -1,29 +1,65 @@
 import * as React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../../app-context";
+import { AppContext } from "../../App";
 import Diamond from "../../components/shapes/Diamond";
 import { colors } from "../../theme/colors";
 
 export default function OuterDiamonds() {
-  const { outerDiamondSynth } = React.useContext(AppContext);
   const [selectedGreen, setSelectedGreen] = React.useState(false);
-  const { outerDiamondDelay } = React.useContext(AppContext);
+  const { pitchShift, reverb, volume } = React.useContext(AppContext);
 
-  const sequence = new Tone.Sequence(
-    (time, note) => {
-      outerDiamondSynth.triggerAttackRelease(note, "16t", time);
-    },
-    ["D4", ["F4", "G4", "A4", "458"]],
-    "4n"
-  );
-  const delaySequence = new Tone.Sequence(
-    (time, delayTime) => {
-      outerDiamondDelay.delayTime.rampTo(delayTime, 0.25, time);
-    },
-    ["4n", "8n", "16n"],
-    "1n"
+  const gain = React.useMemo(
+    () => new Tone.Gain(-12, "decibels").connect(Tone.Destination),
+    []
   );
 
+  const delay = React.useMemo(
+    () =>
+      new Tone.FeedbackDelay({
+        maxDelay: 2,
+        feedback: 0.5,
+        wet: 0.2
+      }).connect(gain),
+    []
+  );
+
+  const synth = React.useMemo(
+    () =>
+      new Tone.FMSynth({ volume: -9 }).chain(delay, pitchShift, reverb, volume),
+    []
+  );
+
+  const sequence = React.useMemo(
+    () =>
+      new Tone.Sequence(
+        (time, note) => {
+          synth.triggerAttackRelease(note, "16t", time);
+        },
+        ["D4", ["F4", "G4", "A4", "458"]],
+        "4n"
+      ),
+    []
+  );
+  const delaySequence = React.useMemo(
+    () =>
+      new Tone.Sequence(
+        (time, delayTime) => {
+          delay.delayTime.rampTo(delayTime, 0.25, time);
+        },
+        ["4n", "8n", "16n"],
+        "1n"
+      ),
+    []
+  );
+  React.useEffect(() => {
+    return () => {
+      gain.dispose();
+      delay.dispose();
+      synth.dispose();
+      sequence.dispose();
+      delaySequence.dispose();
+    };
+  }, []);
   React.useEffect(() => {
     if (selectedGreen) {
       sequence.start(0);

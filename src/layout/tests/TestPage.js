@@ -64,12 +64,12 @@ const menu = [
     url: "/tests/x-stitch-set",
     title: "X Stitch Set",
     component: <XStitchSet />
-  },
-  {
-    url: "/triangle-in-d",
-    title: "Triangle In D",
-    component: <TriangleInD />
   }
+  // {
+  //   url: "/triangle-in-d",
+  //   title: "Triangle In D",
+  //   component: <TriangleInD />
+  // }
 ];
 
 const useStyles = makeStyles({

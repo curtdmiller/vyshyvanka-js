@@ -2,7 +2,7 @@ import * as React from "react";
 import { IconButton } from "@material-ui/core";
 import { Palette } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import { AppContext } from "../app-context";
+import { AppContext } from "../App";
 import { CompactPicker } from "react-color";
 import { colors } from "../theme/colors";
 

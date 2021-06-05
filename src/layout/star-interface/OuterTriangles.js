@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import * as React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../../app-context";
+import { AppContext } from "../../App";
 import { RightTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
 

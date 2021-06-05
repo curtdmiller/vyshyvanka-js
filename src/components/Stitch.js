@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppContext } from "../app-context";
+import { AppContext } from "../App";
 
 export default function Stitch({ fill, x, y, id, selected, handleClick }) {
   const [currentFill, setCurrentFill] = React.useState(fill);

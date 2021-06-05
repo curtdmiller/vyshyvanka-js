@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppContext } from "../../app-context";
+import { AppContext } from "../../App";
 import Diamond from "../../components/shapes/Diamond";
 import Single from "../../components/shapes/Single";
 import Square from "../../components/shapes/Square";
