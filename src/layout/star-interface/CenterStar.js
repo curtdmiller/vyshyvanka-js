@@ -1,9 +1,9 @@
 import React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../../App";
 import Line from "../../components/shapes/Line";
 import { colors } from "../../theme/colors";
 import { defaultMonoSettings } from "../../tone/synth-defaults";
+import { StarContext } from "../star-diamond";
 
 export default function CenterStar() {
   return (
@@ -18,14 +18,14 @@ export default function CenterStar() {
 
 function Vertical() {
   const [selected, setSelected] = React.useState(false);
-  const { synthNode } = React.useContext(AppContext);
+  const { synthChannel } = React.useContext(StarContext);
 
   const synth = React.useMemo(
     () =>
       new Tone.MonoSynth({
         ...defaultMonoSettings,
         volume: -15
-      }).connect(synthNode),
+      }).connect(synthChannel),
     []
   );
 
@@ -69,14 +69,14 @@ function Vertical() {
 
 function Horizontal() {
   const [selected, setSelected] = React.useState(false);
-  const { synthNode } = React.useContext(AppContext);
+  const { synthChannel } = React.useContext(StarContext);
 
   const synth = React.useMemo(
     () =>
       new Tone.MonoSynth({
         ...defaultMonoSettings,
         volume: -15
-      }).connect(synthNode),
+      }).connect(synthChannel),
     []
   );
 
@@ -120,14 +120,14 @@ function Horizontal() {
 
 function Ascending() {
   const [selected, setSelected] = React.useState(false);
-  const { synthNode } = React.useContext(AppContext);
+  const { synthChannel } = React.useContext(StarContext);
 
   const synth = React.useMemo(
     () =>
       new Tone.MonoSynth({
         ...defaultMonoSettings,
         volume: -6
-      }).connect(synthNode),
+      }).connect(synthChannel),
     []
   );
 
@@ -170,14 +170,14 @@ function Ascending() {
 
 function Descending() {
   const [selected, setSelected] = React.useState(false);
-  const { synthNode } = React.useContext(AppContext);
+  const { synthChannel } = React.useContext(StarContext);
 
   const synth = React.useMemo(
     () =>
       new Tone.MonoSynth({
         ...defaultMonoSettings,
         volume: -6
-      }).connect(synthNode),
+      }).connect(synthChannel),
     []
   );
 

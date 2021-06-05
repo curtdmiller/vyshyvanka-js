@@ -1,9 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 import * as React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../../App";
 import { RightTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
+import { StarContext } from "../star-diamond";
 
 const useStyles = makeStyles({
   triangle: {
@@ -15,17 +15,12 @@ const useStyles = makeStyles({
 });
 
 export default function OuterTriangles() {
-  const { volume } = React.useContext(AppContext);
-  const [vol, setVol] = React.useState(volume.volume.value);
+  const { volumeLevel, setVolumeLevel } = React.useContext(StarContext);
   const classes = useStyles();
   const topRightEl = React.useRef(null);
   const topLeftEl = React.useRef(null);
   const bottomRightEl = React.useRef(null);
   const bottomLeftEl = React.useRef(null);
-
-  React.useEffect(() => {
-    volume.volume.rampTo(vol, 0.5);
-  }, [vol]);
 
   function blink(el) {
     el.classList.toggle("clicked");
@@ -50,8 +45,8 @@ export default function OuterTriangles() {
     if (!e.shiftKey) {
       blink(bottomRightEl.current);
     }
-    if (vol < -4) {
-      setVol(vol + 2);
+    if (volumeLevel < -4) {
+      setVolumeLevel(volumeLevel + 2);
     }
   }
 
@@ -59,7 +54,7 @@ export default function OuterTriangles() {
     if (!e.shiftKey) {
       blink(bottomLeftEl.current);
     }
-    setVol(vol - 2);
+    setVolumeLevel(volumeLevel - 2);
   }
 
   return (

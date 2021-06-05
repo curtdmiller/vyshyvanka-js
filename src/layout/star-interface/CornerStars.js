@@ -4,6 +4,7 @@ import Diamond from "../../components/shapes/Diamond";
 import Single from "../../components/shapes/Single";
 import Square from "../../components/shapes/Square";
 import { colors } from "../../theme/colors";
+import { StarContext } from "../star-diamond";
 
 function CornerStar({ cx, cy, selected, setSelected, clickHandler }) {
   return (
@@ -30,48 +31,47 @@ function CornerStar({ cx, cy, selected, setSelected, clickHandler }) {
 }
 
 export default function CornerStars() {
-  const { pitchShift, delay, reverb } = React.useContext(AppContext);
+  const { pitchShiftPitch, setPitchShiftPitch, setDelayMute, setReverbMute } =
+    React.useContext(StarContext);
   const [selectedWest, setSelectedWest] = React.useState(false);
   const [selectedEast, setSelectedEast] = React.useState(false);
   const [selectedNorth, setSelectedNorth] = React.useState(false);
   const [selectedSouth, setSelectedSouth] = React.useState(false);
-  const [currentPitchShift, setCurrentPitchShift] = React.useState(0);
 
   function resetClickHandler() {
-    setCurrentPitchShift(0);
+    setPitchShiftPitch(0);
     setSelectedWest(false);
     setSelectedEast(false);
   }
 
   React.useEffect(() => {
-    delay.wet.value = selectedWest ? 0.2 : 0;
+    setDelayMute(!selectedWest);
   }, [selectedWest]);
   React.useEffect(() => {
-    reverb.wet.value = selectedEast ? 1 : 0;
+    setReverbMute(!selectedEast);
   }, [selectedEast]);
   function northClickHandler(e) {
     if (!e.shiftKey) {
-      setCurrentPitchShift(currentPitchShift + 1);
+      setPitchShiftPitch(pitchShiftPitch + 1);
     }
   }
   function southClickHandler(e) {
     if (!e.shiftKey) {
-      setCurrentPitchShift(currentPitchShift - 1);
+      setPitchShiftPitch(pitchShiftPitch - 1);
     }
   }
   React.useEffect(() => {
-    pitchShift.pitch = currentPitchShift;
-    if (currentPitchShift > 0) {
+    if (pitchShiftPitch > 0) {
       setSelectedNorth(true);
       setSelectedSouth(false);
-    } else if (currentPitchShift < 0) {
+    } else if (pitchShiftPitch < 0) {
       setSelectedNorth(false);
       setSelectedSouth(true);
     } else {
       setSelectedNorth(false);
       setSelectedSouth(false);
     }
-  }, [currentPitchShift]);
+  }, [pitchShiftPitch]);
 
   return (
     <g>

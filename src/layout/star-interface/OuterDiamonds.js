@@ -3,10 +3,11 @@ import * as Tone from "tone";
 import { AppContext } from "../../App";
 import Diamond from "../../components/shapes/Diamond";
 import { colors } from "../../theme/colors";
+import { StarContext } from "../star-diamond";
 
 export default function OuterDiamonds() {
   const [selectedGreen, setSelectedGreen] = React.useState(false);
-  const { pitchShift, reverb, volume } = React.useContext(AppContext);
+  const { diamondChannel } = React.useContext(StarContext);
 
   const gain = React.useMemo(
     () => new Tone.Gain(-12, "decibels").connect(Tone.Destination),
@@ -24,8 +25,7 @@ export default function OuterDiamonds() {
   );
 
   const synth = React.useMemo(
-    () =>
-      new Tone.FMSynth({ volume: -9 }).chain(delay, pitchShift, reverb, volume),
+    () => new Tone.FMSynth({ volume: -9 }).chain(delay, diamondChannel),
     []
   );
 

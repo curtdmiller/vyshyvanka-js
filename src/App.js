@@ -7,33 +7,12 @@ import { colors } from "./theme/colors";
 
 Tone.Transport.bpm.value = 160;
 
-const pitchShift = new Tone.PitchShift();
-const delay = new Tone.FeedbackDelay({
-  maxDelay: 2,
-  feedback: 0.5,
-  wet: 0.2
-});
-const reverb = new Tone.Freeverb();
-const volume = new Tone.Volume(-6).toDestination();
-
-const synthNode = new Tone.Gain(0, "decibels").chain(
-  pitchShift,
-  delay,
-  reverb,
-  volume
-);
-
-export const defaultAppContext = {
+const defaultAppContext = {
   cellSize: 24,
   selectFill: colors.blue,
   setSelectFill: () => {},
   isAudioStarted: false,
-  setIsAudioStarted: () => {},
-  pitchShift,
-  delay,
-  reverb,
-  volume,
-  synthNode
+  setIsAudioStarted: () => {}
 };
 
 export const AppContext = React.createContext(defaultAppContext);
@@ -47,7 +26,7 @@ export default function App() {
       <Router>
         <AppContext.Provider
           value={{
-            ...defaultAppContext,
+            cellSize: 24,
             selectFill,
             setSelectFill,
             isAudioStarted,

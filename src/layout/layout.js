@@ -117,13 +117,16 @@ export default function Layout() {
         </h1>
         <nav>
           <ul className={classes.menu}>
-            {menu.map((item) => (
-              <li key={item.url} className={classes.menuItem}>
-                <Link to={item.url} className={classes.menuLink}>
-                  <span className={classes.menuItemText}>{item.title}</span>
-                </Link>
-              </li>
-            ))}
+            <li className={classes.menuItem}>
+              <Link to="/star-diamond" className={classes.menuLink}>
+                <span className={classes.menuItemText}>Star Interface</span>
+              </Link>
+            </li>
+            <li className={classes.menuItem}>
+              <Link to="/free-draw" className={classes.menuLink}>
+                <span className={classes.menuItemText}>Free Draw</span>
+              </Link>
+            </li>
             <li className={classes.menuItem}>
               <Link to={"/tests"} className={classes.menuLink}>
                 <span className={classes.menuItemText}>Tests</span>
@@ -135,16 +138,25 @@ export default function Layout() {
       <Route path={"/tests"}>
         <TestPage />
       </Route>
-      {menu.map((item) => (
-        <Route path={item.url} key={item.url}>
-          <Link to="/" className={classes.backLink}>
-            Back
-          </Link>
-          <ColorPicker />
-          {item.hasAudio && <AudioStartButton />}
-          <div className={classes.embroidery}>{item.component}</div>
-        </Route>
-      ))}
+      <Route path="/star-diamond">
+        <Link to="/" className={classes.backLink}>
+          Back
+        </Link>
+        <ColorPicker />
+        <AudioStartButton />
+        <div className={classes.embroidery}>
+          <StarDiamond />
+        </div>
+      </Route>
+      <Route path="/free-draw">
+        <Link to="/" className={classes.backLink}>
+          Back
+        </Link>
+        <ColorPicker />
+        <div className={classes.embroidery}>
+          <FreeDraw />
+        </div>
+      </Route>
     </main>
   );
 }

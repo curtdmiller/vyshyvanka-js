@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as Tone from "tone";
-import { AppContext } from "../../App";
 import { IsoTriangle } from "../../components/shapes/Triangles";
 import { colors } from "../../theme/colors";
 import { defaultFMSettings } from "../../tone/synth-defaults";
+import { StarContext } from "../star-diamond";
 
 function TriangleGroup({
   patternContent,
@@ -11,13 +11,13 @@ function TriangleGroup({
   triangles,
   synthVol
 }) {
-  const { synthNode } = React.useContext(AppContext);
+  const { synthChannel } = React.useContext(StarContext);
   const [selected, setSelected] = React.useState(false);
   const synth = React.useMemo(() => {
     return new Tone.FMSynth({
       ...defaultFMSettings,
       volume: synthVol ? synthVol : -6
-    }).connect(synthNode);
+    }).connect(synthChannel);
   }, []);
   const pattern = React.useMemo(() => {
     return new Tone.Pattern(
