@@ -6,7 +6,6 @@ import Layout from "./layout/layout";
 import { colors } from "./theme/colors";
 
 Tone.Transport.bpm.value = 160;
-Tone.Transport.start();
 
 const pitchShift = new Tone.PitchShift();
 const delay = new Tone.FeedbackDelay({

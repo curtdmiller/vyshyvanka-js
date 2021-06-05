@@ -37,6 +37,7 @@ export default function AudioStartButton() {
     if (!isAudioStarted) {
       await Tone.start();
       setIsAudioStarted(true);
+      Tone.Transport.start();
     }
   }
 
