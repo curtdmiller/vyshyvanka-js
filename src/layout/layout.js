@@ -6,9 +6,11 @@ import StarDiamond from "./star-diamond";
 import AudioStartButton from "../components/AudioStart";
 import TestPage from "./tests/TestPage";
 import FreeDraw from "./FreeDraw";
+import aboutImage from "../assets/About-bg.jpg";
 import interfaceImage from "../assets/StarInterface.png";
 import freeDrawImage from "../assets/FreeDraw.png";
 import testImage from "../assets/NestedDiamonds.png";
+import About from "./about";
 
 const menu = [
   {
@@ -42,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 .1em 0 .2em"
   },
   menu: {
-    margin: 0,
+    maxWidth: 1200,
+    margin: "0 auto",
     padding: 0,
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -61,19 +64,25 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "100%",
     backgroundPosition: "center center",
     backgroundSize: "cover",
-    "&:first-child": {
+    "&:nth-child(1)": {
       backgroundImage: `linear-gradient(
       rgba(255,255,255, 0.3), 
       rgba(255,255,255, 0.3)
-    ), url(${interfaceImage})`
+    ), url(${aboutImage})`
     },
     "&:nth-child(2)": {
       backgroundImage: `linear-gradient(
       rgba(255,255,255, 0.3), 
       rgba(255,255,255, 0.3)
-    ), url(${freeDrawImage})`
+    ), url(${interfaceImage})`
     },
     "&:nth-child(3)": {
+      backgroundImage: `linear-gradient(
+      rgba(255,255,255, 0.3), 
+      rgba(255,255,255, 0.3)
+    ), url(${freeDrawImage})`
+    },
+    "&:nth-child(4)": {
       backgroundImage: `linear-gradient(
       rgba(255,255,255, 0.3), 
       rgba(255,255,255, 0.3)
@@ -118,6 +127,11 @@ export default function Layout() {
         <nav>
           <ul className={classes.menu}>
             <li className={classes.menuItem}>
+              <Link to="/about" className={classes.menuLink}>
+                <span className={classes.menuItemText}>About</span>
+              </Link>
+            </li>
+            <li className={classes.menuItem}>
               <Link to="/star-diamond" className={classes.menuLink}>
                 <span className={classes.menuItemText}>Star Interface</span>
               </Link>
@@ -137,6 +151,9 @@ export default function Layout() {
       </Route>
       <Route path={"/tests"}>
         <TestPage />
+      </Route>
+      <Route path="/about">
+        <About />
       </Route>
       <Route path="/star-diamond">
         <Link to="/" className={classes.backLink}>
