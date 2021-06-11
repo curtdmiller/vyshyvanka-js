@@ -8,8 +8,8 @@ import InnerTriangles from "./star-interface/InnerTriangles";
 import OuterDiamonds from "./star-interface/OuterDiamonds";
 import CornerStars from "./star-interface/CornerStars";
 import CenterStar from "./star-interface/CenterStar";
-import { IconButton, makeStyles } from "@material-ui/core";
-import { Info } from "@material-ui/icons";
+import { IconButton, makeStyles, Tooltip } from "@material-ui/core";
+import { GetApp, Info } from "@material-ui/icons";
 import InfoDialog from "./star-interface/InfoDialog";
 
 const useStyles = makeStyles({
@@ -20,10 +20,14 @@ const useStyles = makeStyles({
   label: {
     margin: 0
   },
-  infoButton: {
+  iconMenu: {
     position: "fixed",
     top: 5,
     right: 5,
+    display: "flex",
+    flexDirection: "column"
+  },
+  infoButton: {
     color: "#333"
   }
 });
@@ -43,6 +47,7 @@ export const StarContext = React.createContext({
 
 export default function StarDiamond() {
   const classes = useStyles();
+  const svgRef = React.useRef();
   const [open, setOpen] = React.useState(false);
   const volume = React.useMemo(() => new Tone.Volume(-6).toDestination(), []);
   const pitchShift = React.useMemo(
@@ -116,17 +121,42 @@ export default function StarDiamond() {
   React.useEffect(() => {
     volume.volume.rampTo(volumeLevel, 0.5);
   }, [volumeLevel]);
-
+  function handleExport() {
+    if (svgRef.current) {
+      const data = new XMLSerializer().serializeToString(svgRef.current);
+      const svg = new Blob([data], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svg);
+      const a = document.createElement("a");
+      a.setAttribute("href", url);
+      a.setAttribute("target", "download");
+      a.setAttribute("download", "vyshyvanka-star.svg");
+      a.click();
+    }
+  }
   return (
     <>
-      <IconButton
-        size="medium"
-        fontSize="large"
-        onClick={() => setOpen(true)}
-        className={classes.infoButton}
-      >
-        <Info />
-      </IconButton>
+      <div className={classes.iconMenu}>
+        <Tooltip title="Instructions" placement="left">
+          <IconButton
+            size="medium"
+            fontSize="large"
+            onClick={() => setOpen(true)}
+            className={classes.infoButton}
+          >
+            <Info />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Export SVG" placement="left">
+          <IconButton
+            size="medium"
+            fontSize="large"
+            onClick={handleExport}
+            className={classes.infoButton}
+          >
+            <GetApp />
+          </IconButton>
+        </Tooltip>
+      </div>
       <InfoDialog open={open} setOpen={setOpen} />
       <div className={classes.labelWrapper}>
         <p className={classes.label}>Tempo -</p>
@@ -146,7 +176,7 @@ export default function StarDiamond() {
           diamondChannel
         }}
       >
-        <Fabric gridSize={[37, 37]}>
+        <Fabric gridSize={[37, 37]} ref={svgRef}>
           <OuterTriangles />
           <OuterDiamonds />
           <InnerTriangles />
