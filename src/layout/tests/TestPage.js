@@ -16,8 +16,10 @@ import EmptyDiamond from "./empty-diamond";
 import NoiseSquare from "./noise-square";
 import IsoscelesTriangles from "./iso-triangles";
 import XStitchSet from "./x-stitch-set";
+import Spirals from "./spirals";
 
 const menu = [
+  { url: "/tests/spirals", title: "Spirals", component: <Spirals /> },
   {
     url: "/tests/nested-diamonds",
     title: "Nested Diamonds",
@@ -84,15 +86,10 @@ export default function TestPage() {
       <Route path="/tests" exact>
         <Link to="/">← back to home</Link>
         <h1>Tests</h1>
-        {/* <nav>
-          <ul>
-            {menu.map((item) => (
-              <li key={item.url}>
-                <Link to={item.url}>{item.title}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav> */}
+        <p>
+          Tests of basic shape components, sketches and copies of Vyshyvanka
+          design elements
+        </p>
         {menu.map((item) => (
           <div className={classes.gallery}>
             <h2>{item.title}</h2>
@@ -100,14 +97,6 @@ export default function TestPage() {
           </div>
         ))}
       </Route>
-      {menu.map((item) => (
-        <Route path={item.url} key={item.url}>
-          <Link to="/tests">Back</Link>
-          <ColorPicker />
-          <AudioStartButton />
-          <div className={classes.embroidery}>{item.component}</div>
-        </Route>
-      ))}
     </main>
   );
 }
