@@ -8,7 +8,6 @@ import NestedDiamonds from "./nested-diamonds";
 import NestedPlus from "./nested-plus";
 import PlusCross from "./plus-cross";
 import PlusStars from "./plus-stars";
-import ToneTest from "./tone-test";
 import SquareTest from "./square-test";
 import LineTest from "./line-test";
 import StarDiamond from "./star-diamond-test";
@@ -17,7 +16,6 @@ import EmptyDiamond from "./empty-diamond";
 import NoiseSquare from "./noise-square";
 import IsoscelesTriangles from "./iso-triangles";
 import XStitchSet from "./x-stitch-set";
-import TriangleInD from "./triangle-in-d";
 
 const menu = [
   {
@@ -32,7 +30,6 @@ const menu = [
   },
   { url: "/tests/plus-cross", title: "Plus Cross", component: <PlusCross /> },
   { url: "/tests/plus-star", title: "Plus Star", component: <PlusStars /> },
-  // { url: "/tests/tone-test", title: "Tone Test", component: <ToneTest /> },
   {
     url: "/tests/square-test",
     title: "Square Test",
@@ -65,11 +62,6 @@ const menu = [
     title: "X Stitch Set",
     component: <XStitchSet />
   }
-  // {
-  //   url: "/triangle-in-d",
-  //   title: "Triangle In D",
-  //   component: <TriangleInD />
-  // }
 ];
 
 const useStyles = makeStyles({
