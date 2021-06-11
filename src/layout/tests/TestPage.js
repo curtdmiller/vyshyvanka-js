@@ -68,6 +68,11 @@ const useStyles = makeStyles({
   embroidery: {
     maxWidth: 800,
     margin: "0 auto"
+  },
+  gallery: {
+    maxWidth: 600,
+    margin: "0 auto",
+    padding: "32px 0"
   }
 });
 
@@ -79,7 +84,7 @@ export default function TestPage() {
       <Route path="/tests" exact>
         <Link to="/">← back to home</Link>
         <h1>Tests</h1>
-        <nav>
+        {/* <nav>
           <ul>
             {menu.map((item) => (
               <li key={item.url}>
@@ -87,7 +92,13 @@ export default function TestPage() {
               </li>
             ))}
           </ul>
-        </nav>
+        </nav> */}
+        {menu.map((item) => (
+          <div className={classes.gallery}>
+            <h2>{item.title}</h2>
+            {item.component}
+          </div>
+        ))}
       </Route>
       {menu.map((item) => (
         <Route path={item.url} key={item.url}>
