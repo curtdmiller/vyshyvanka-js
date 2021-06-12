@@ -4,8 +4,17 @@ import G from "../../components/G";
 import Line from "../../components/shapes/Line";
 import Plus from "../../components/shapes/Plus";
 import { colors } from "../../theme/colors";
+import spirals from "../../assets/about/spirals.jpg";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  image: {
+    marginTop: 20
+  }
+});
 
 export default function Spirals() {
+  const classes = useStyles();
   const iterations = 6;
   function renderIterations() {
     const arr = [];
@@ -15,9 +24,12 @@ export default function Spirals() {
     return arr;
   }
   return (
-    <Fabric gridSize={[iterations * 12 - 1, 15]} backgroundColor="black">
-      <G y={1}>{renderIterations()}</G>
-    </Fabric>
+    <React.Fragment>
+      <Fabric gridSize={[iterations * 12 - 1, 15]} backgroundColor="#333">
+        <G y={1}>{renderIterations()}</G>
+      </Fabric>
+      <img src={spirals} className={classes.image} />
+    </React.Fragment>
   );
 }
 
