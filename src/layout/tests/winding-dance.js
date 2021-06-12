@@ -7,9 +7,6 @@ import { colors } from "../../theme/colors";
 import image from "../../assets/about/windingdances.jpg";
 
 export default function WindingDance() {
-  const stitches = React.useMemo(() => {
-    return [];
-  }, []);
   function renderPattern() {
     const elements = [];
     for (let i = 0; i < 5; i++) {

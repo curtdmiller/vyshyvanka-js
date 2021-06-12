@@ -18,6 +18,7 @@ import IsoscelesTriangles from "./iso-triangles";
 import XStitchSet from "./x-stitch-set";
 import Spirals from "./spirals";
 import WindingDance from "./winding-dance";
+import XSquare from "./x-square";
 
 const menu = [
   { url: "/tests/spirals", title: "Spirals", component: <Spirals /> },
@@ -26,6 +27,7 @@ const menu = [
     title: "Winding Dance",
     component: <WindingDance />
   },
+  { url: "/tests/x-square", title: "X Square", component: <XSquare /> },
   {
     url: "/tests/nested-diamonds",
     title: "Nested Diamonds",
