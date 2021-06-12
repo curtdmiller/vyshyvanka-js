@@ -143,7 +143,7 @@ export default function Layout() {
             </li>
             <li className={classes.menuItem}>
               <Link to={"/tests"} className={classes.menuLink}>
-                <span className={classes.menuItemText}>Tests</span>
+                <span className={classes.menuItemText}>Gallery</span>
               </Link>
             </li>
           </ul>

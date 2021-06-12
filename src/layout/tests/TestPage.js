@@ -93,10 +93,10 @@ export default function TestPage() {
     <main>
       <Route path="/tests" exact>
         <Link to="/">← back to home</Link>
-        <h1>Tests</h1>
+        <h1>Gallery</h1>
         <p>
-          Tests of basic shape components, sketches and copies of Vyshyvanka
-          design elements
+          Transcriptions of real embroidery patterns, tests of basic shape
+          components, sketches and copies of Vyshyvanka design elements
         </p>
         {menu.map((item) => (
           <div className={classes.gallery}>
