@@ -17,9 +17,15 @@ import NoiseSquare from "./noise-square";
 import IsoscelesTriangles from "./iso-triangles";
 import XStitchSet from "./x-stitch-set";
 import Spirals from "./spirals";
+import WindingDance from "./winding-dance";
 
 const menu = [
   { url: "/tests/spirals", title: "Spirals", component: <Spirals /> },
+  {
+    url: "/tests/winding-dance",
+    title: "Winding Dance",
+    component: <WindingDance />
+  },
   {
     url: "/tests/nested-diamonds",
     title: "Nested Diamonds",
